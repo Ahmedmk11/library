@@ -16,10 +16,34 @@ header {
     padding: 0.5em 1.5em 0.5em 1.5em;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     background-color: yellow;
 
     h1 {
         font-size: 3.5rem;
+    }
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100%;
+    p {
+        margin: 0.4em;
+        a:visited {
+          color: black;  
+        }
+    }
+}
+
+#account {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    img {
+        margin-right: 1em;
     }
 }
 
