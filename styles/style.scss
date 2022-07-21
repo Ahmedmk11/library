@@ -2,14 +2,12 @@ html {
     font-size: 100%;
     padding: 0%;
     margin: 0%;
-    // overflow-x: hidden;
     height: 100%;
 }
 
 body {
-    // width: 100vw;
     height: 100%;
-    padding: 1em;
+    padding: 1em 1em 1em 0em;
 }
 
 header {
@@ -29,13 +27,24 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100%;
     p {
         margin: 0.4em;
         a:visited {
           color: black;  
         }
     }
+}
+
+.types {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 0.75em 1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 #account {
@@ -47,11 +56,16 @@ footer {
     }
 }
 
+img:hover {
+    cursor: pointer;
+}
+
 #middle{
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     height: 80%;
+    align-items: center;
 }
 
 #side-bar {
@@ -61,12 +75,23 @@ footer {
     width: 20%;
     height: 80%;
     padding: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#side-items {
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 #card-container {
     width: 75%;
     background-color: blue; 
-    height: 600px;
+    height: 100%;
 }
 
 #card-test{
