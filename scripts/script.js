@@ -1,16 +1,3 @@
-// function setTheme() {
-//     const root = document.documentElement;
-//     const newTheme = root.className === 'dark' ? 'light' : 'dark';
-//     root.className = newTheme;
-// }
-// document.querySelector('.theme-toggle').addEventListener('click', setTheme)
-
-// let currentYear = new Date().getFullYear(); 
-// let startYr = document.getElementById("starting-year").textContent;
-// if(startYr != currentYear){
-//     document.getElementById("current-year").textContent = `-${currentYear}`;
-// }
-
 // ----------------
 // Global variables & Constants:
 // ----------------
@@ -22,7 +9,6 @@ let mode = "movies"
 let myBooks = [];
 let mySeries = [];
 let myMovies = [];
-
 
 const plus = document.getElementById("add-new");
 
@@ -100,14 +86,23 @@ Movie.prototype = Object.create(Entertainment.prototype);
 
  moviesBtn.addEventListener("click", function() {
     mode = "movies"
+    moviePop.setAttribute("style", "display: none;")
+    seriesPop.setAttribute("style", "display: none;")
+    bookPop.setAttribute("style", "display: none;")
 })
 
 seriesBtn.addEventListener("click", function() {
     mode = "series"
+    moviePop.setAttribute("style", "display: none;")
+    seriesPop.setAttribute("style", "display: none;")
+    bookPop.setAttribute("style", "display: none;")
 })
 
 booksBtn.addEventListener("click", function() {
     mode = "books"
+    moviePop.setAttribute("style", "display: none;")
+    seriesPop.setAttribute("style", "display: none;")
+    bookPop.setAttribute("style", "display: none;")
 })
 
 plus.addEventListener("click", function(){
@@ -141,9 +136,7 @@ submitMovie.addEventListener("click", function() {
 
     let newMovie = new Series(hrs, mins, document.getElementById("movie-title").value, document.getElementById("movie-genre").value, isFinished);
     myMovies.push(newMovie);
-    moviePop.setAttribute("style" ,"display: none;")
-
-    console.log(myMovies[0])
+    // moviePop.setAttribute("style" ,"display: none;")
 });
 
 submitSeries.addEventListener("click", function() {
@@ -154,7 +147,7 @@ submitSeries.addEventListener("click", function() {
 
     let newSeries = new Series(document.getElementById("total-seasons").value, document.getElementById("series-title").value, document.getElementById("series-genre").value, document.getElementById("current-episode").value, isFinished);
     mySeries.push(newSeries);
-    seriesPop.setAttribute("style" ,"display: none;")
+    // seriesPop.setAttribute("style" ,"display: none;")
 });
 
 submitBook.addEventListener("click", function() {
@@ -165,5 +158,18 @@ submitBook.addEventListener("click", function() {
 
     let newBook = new Book(document.getElementById("author-name").value, document.getElementById("total-pages").value, document.getElementById("book-title").value, document.getElementById("book-genre").value, isFinished);
     myBooks.push(newBook);
-    bookPop.setAttribute("style", "display: none;")
+    // bookPop.setAttribute("style", "display: none;")
 });
+
+// function setTheme() {
+//     const root = document.documentElement;
+//     const newTheme = root.className === 'dark' ? 'light' : 'dark';
+//     root.className = newTheme;
+// }
+// document.querySelector('.theme-toggle').addEventListener('click', setTheme)
+
+// let currentYear = new Date().getFullYear(); 
+// let startYr = document.getElementById("starting-year").textContent;
+// if(startYr != currentYear){
+//     document.getElementById("current-year").textContent = `-${currentYear}`;
+// }
