@@ -11,13 +11,24 @@
 //     document.getElementById("current-year").textContent = `-${currentYear}`;
 // }
 
-let mode = "movies"
+// ----------------
+// Global variables & Constants:
+// ----------------
 
 document.bookForm.finishedPages.setAttribute("max", document.getElementById("total-pages").value);
 document.seriesForm.finishedSeasons.setAttribute("max", document.getElementById("total-seasons").value);
 
-const submitNew = document.getElementById("submit");
+let mode = "movies"
+let myBooks = [];
+let mySeries = [];
+let myMovies = [];
+
+
 const plus = document.getElementById("add-new");
+
+const submitMovie = document.getElementById("submit-movie");
+const submitSeries = document.getElementById("submit-series");
+const submitBook = document.getElementById("submit-book");
 
 const bookPop = document.getElementById("add-book-popup");
 const moviePop = document.getElementById("add-movie-popup");
@@ -27,55 +38,10 @@ const moviesBtn = document.getElementById("movies-btn")
 const seriesBtn = document.getElementById("series-btn")
 const booksBtn = document.getElementById("books-btn")
 
-moviesBtn.addEventListener("click", function() {
-    mode = "movies"
-})
 
-seriesBtn.addEventListener("click", function() {
-    mode = "series"
-})
-
-booksBtn.addEventListener("click", function() {
-    mode = "books"
-})
-
-plus.addEventListener("click", function(){
-    switch (mode) {
-        case "movies":
-            moviePop.setAttribute("style", "display: block;")
-            seriesPop.setAttribute("style", "display: none;")
-            bookPop.setAttribute("style", "display: none;")
-            break;
-        case "series":
-            seriesPop.setAttribute("style", "display: block;")
-            moviePop.setAttribute("style", "display: none;")
-            bookPop.setAttribute("style", "display: none;")
-            break;
-        case "books":
-            bookPop.setAttribute("style", "display: block;")
-            seriesPop.setAttribute("style", "display: none;")
-            moviePop.setAttribute("style", "display: none;")
-            break;
-    }
-});
-
-submitNew.addEventListener("click", function() {
-    switch (mode) {
-        case "movies":
-            addMovieToLibrary
-            break;
-        case "series":
-            addSeriesToLibrary
-            break;
-        case "books":
-            addBookToLibrary
-            break;
-    }
-});
-
-let myBooks = [];
-let mySeries = [];
-let myMovies = [];
+// ----------------
+// Objects & Constructors:
+// ----------------
 
 function Entertainment() {
 }
@@ -128,29 +94,43 @@ function Movie(hours, minutes, title, genre, isFinished){
 
 Movie.prototype = Object.create(Entertainment.prototype);
 
-function addBookToLibrary() {
-    let isFinished = false
-    if (document.getElementById("finished-pages").value == document.getElementById("total-pages").value){
-        isFinished = true
+// ----------------
+// Event Listeners:
+// ---------------- 
+
+ moviesBtn.addEventListener("click", function() {
+    mode = "movies"
+})
+
+seriesBtn.addEventListener("click", function() {
+    mode = "series"
+})
+
+booksBtn.addEventListener("click", function() {
+    mode = "books"
+})
+
+plus.addEventListener("click", function(){
+    switch (mode) {
+        case "movies":
+            moviePop.setAttribute("style", "display: block;")
+            seriesPop.setAttribute("style", "display: none;")
+            bookPop.setAttribute("style", "display: none;")
+            break;
+        case "series":
+            seriesPop.setAttribute("style", "display: block;")
+            moviePop.setAttribute("style", "display: none;")
+            bookPop.setAttribute("style", "display: none;")
+            break;
+        case "books":
+            bookPop.setAttribute("style", "display: block;")
+            seriesPop.setAttribute("style", "display: none;")
+            moviePop.setAttribute("style", "display: none;")
+            break;
     }
+});
 
-    let newBook = new Book(document.getElementById("author-name").value, document.getElementById("total-pages").value, document.getElementById("book-title").value, document.getElementById("book-genre").value, isFinished);
-    myBooks.push(newBook);
-    bookPop.setAttribute("style", "display: none;")
-}
-
-function addSeriesToLibrary() {
-    let isFinished = false
-    if (document.getElementById("finished-seasons").value == document.getElementById("total-seasons").value){
-        isFinished = true
-    }
-
-    let newSeries = new Series(document.getElementById("total-seasons").value, document.getElementById("series-title").value, document.getElementById("series-genre").value, document.getElementById("current-episode").value, isFinished);
-    mySeries.push(newSeries);
-    seriesPop.setAttribute("style" ,"display: none;")
-}
-
-function addMovieToLibrary() {
+submitMovie.addEventListener("click", function() {
     let isFinished = false
     if (document.getElementById("finished-time").value === document.getElementById("total-time").value){
         isFinished = true
@@ -162,4 +142,28 @@ function addMovieToLibrary() {
     let newMovie = new Series(hrs, mins, document.getElementById("movie-title").value, document.getElementById("movie-genre").value, isFinished);
     myMovies.push(newMovie);
     moviePop.setAttribute("style" ,"display: none;")
-}
+
+    console.log(myMovies[0])
+});
+
+submitSeries.addEventListener("click", function() {
+    let isFinished = false
+    if (document.getElementById("finished-seasons").value == document.getElementById("total-seasons").value){
+        isFinished = true
+    }
+
+    let newSeries = new Series(document.getElementById("total-seasons").value, document.getElementById("series-title").value, document.getElementById("series-genre").value, document.getElementById("current-episode").value, isFinished);
+    mySeries.push(newSeries);
+    seriesPop.setAttribute("style" ,"display: none;")
+});
+
+submitBook.addEventListener("click", function() {
+    let isFinished = false
+    if (document.getElementById("finished-pages").value == document.getElementById("total-pages").value){
+        isFinished = true
+    }
+
+    let newBook = new Book(document.getElementById("author-name").value, document.getElementById("total-pages").value, document.getElementById("book-title").value, document.getElementById("book-genre").value, isFinished);
+    myBooks.push(newBook);
+    bookPop.setAttribute("style", "display: none;")
+});
