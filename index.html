@@ -18,29 +18,109 @@
                 <p>Sign Out</p>
             </div>
         </header> 
-
-        <div id="middle">
-            <img src="images/light/left.png" alt="hide sidebar">
-            <div id="side-bar">
-
-                <div id="side-items">
-                    <button class="types">Movies</button>
-                    <button class="types">Series</button>
-                    <button class="types">Books</button>
-                </div>
-
-                <footer>
-                    <p><strong>Made by </strong><a href="https://github.com/Ahmedmk11" target="_blank">Ahmed Mahmoud</a></p>
-                    <p>Copyright © <span id="starting-year">2022</span><span id="current-year"></span></p>
-                </footer>
+        
+        <img id="side-bar-hide" src="images/light/left.png" alt="hide sidebar">
+        
+        <div id="side-bar">
+            <div id="side-items">
+                <button id="movies-btn" class="types">Movies</button>
+                <button id="series-btn" class="types">Series</button>
+                <button id="books-btn" class="types">Books</button>
             </div>
 
-            <div id="card-container">
-                <div id="card-test"></div>
-            </div>
-            
+            <footer>
+                <p><strong>Made by </strong><a href="https://github.com/Ahmedmk11" target="_blank">Ahmed Mahmoud</a></p>
+                <p>Copyright © <span id="starting-year">2022</span><span id="current-year"></span></p>
+            </footer>
         </div>
 
+        <div id="card-container">
+            <div id="add-card">
+                <p id="add-new">+</p>
+            </div>
+        </div>
+
+        <div id="add-book-popup" style="display: none;">
+            <form action="#" name="bookForm" method="get">
+                
+                <label for="book-title">Book Title</label>
+                <input type="text" id="book-title" placeholder="The Gospel of the Flying Spaghetti Monster" minlength="2" maxlength="70" required>
+                
+                <label for="author-name">Author</label>
+                <input type="text" id="author-name" placeholder="Bobby Henderson" minlength="2" maxlength="32" required>
+                
+                <label for="book-genre">Genre</label>
+                <input type="text" id="book-genre" placeholder="Religious Text" required>
+
+                <label for="total-pages">Total Pages</label>
+                <input type="number" id="total-pages" placeholder="192" min="1" required>
+
+                <label for="finished-pages">Finished</label>
+                <input type="number" name="finishedPages" id="finished-pages" placeholder="192" required>
+
+            </form>
+
+            <button type="submit" id="submit" form="bookForm" value="Submit">Submit</button>
+        </div>
+
+        <div id="add-movie-popup" style="display: none;">
+            <form action="#" name="movieForm" method="get">
+                
+                <label for="movie-title">Movie Title</label>
+                <input type="text" id="movie-title" placeholder="Shrek" minlength="2" required>
+                
+                <label for="movie-genre">Genre</label>
+                <input type="text" id="movie-genre" placeholder="Adventure, Comedy" required>
+
+                <label for="total-time">Runtime</label>
+                <input type="text" id="total-time" placeholder="1:30" minlength="4" maxlength="5" required>
+
+                <label for="finished-time">Progress</label>
+                <input type="text" name="finishedTime" id="finished-time" placeholder="1:30" required>
+
+            </form>
+
+            <button type="submit" id="submit" form="movieForm" value="Submit">Submit</button>
+        </div>
+
+        <div id="add-series-popup" style="display: none;">
+            <form action="#" name="seriesForm" method="get">
+                
+                <label for="series-title">Series Title</label>
+                <input type="text" id="series-title" placeholder="JoJo's Bizarre Adventure" minlength="2" required>
+                
+                <label for="series-genre">Genre</label>
+                <input type="text" id="series-genre" placeholder="Supernatural, Fiction" required>
+
+                <label for="total-seasons">Total Seasons</label>
+                <input type="number" id="total-seasons" placeholder="5" min="1" required>
+
+                <label for="finished-seasons">Finished</label>
+                <input type="number" name="finishedSeasons" id="finished-seasons" placeholder="5" required>
+
+                <label for="current-episode">Current Episode</label>
+                <input type="number" id="current-episode" placeholder="13" required>
+
+            </form>
+
+            <button type="submit" id="submit" form="seriesForm" value="Submit">Submit</button>
+        </div>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </body>
 
 </html>
