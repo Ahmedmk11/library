@@ -117,7 +117,7 @@ img:hover {
   top: 24em;
 }
 
-.movie-card-template {
+.card-template {
   background-color: red;
   width: 100%;
   height: 100%;
@@ -125,8 +125,9 @@ img:hover {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.movie-card-template h3 {
+.card-template h3 {
   text-align: center;
 }
 

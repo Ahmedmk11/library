@@ -34,12 +34,13 @@ const cardsContainer = document.getElementById("card-container")
 function Entertainment() {
 }
 
-function Book(author, pages, title, genre, isFinished) {
+function Book(author, pages, currPage, title, genre, isFinished) {
     this.title = title;
     this.genre = genre;
     this.isFinished = isFinished;
     this.author = author;
     this.pages = pages
+    this.currPage = currPage
     this.type = 'b';    
 }
 
@@ -170,7 +171,7 @@ submitBook.addEventListener("click", function() {
     }
     
     if (authorName.length != 0 && totalPages.length != 0 && bookTitle.length != 0 && bookGenre.length != 0 && currPage.length != 0) {
-        let newBook = new Book(authorName, totalPages, bookTitle, bookGenre, isFinished);
+        let newBook = new Book(authorName, totalPages, currPage, bookTitle, bookGenre, isFinished);
         myBooks.push(newBook);
         bookPop.setAttribute("style", "display: none;");
         addBookCards();
@@ -178,6 +179,10 @@ submitBook.addEventListener("click", function() {
         console.log("error") //to be changed
     }
 });
+
+// ----------------
+// Functions:
+// ---------------- 
 
 function addMovieCards() {
     let movieCardTemp = document.createElement('div');
@@ -188,7 +193,7 @@ function addMovieCards() {
     let elem3 = document.createElement('h4');
     let elem4 = document.createElement('h4');
     
-    movieCardTemp.classList.add("movie-card-template")
+    movieCardTemp.classList.add("card-template")
     del.setAttribute("onclick", "removeMovieCards(event)")
     del.innerHTML = "X"
     tmpTitle.innerHTML = "Movie"
@@ -220,7 +225,7 @@ function addSeriesCards() {
     let elem3 = document.createElement('h4');
     let elem4 = document.createElement('h4');
 
-    seriesCardTemp.classList.add("movie-card-template")
+    seriesCardTemp.classList.add("card-template")
     del.setAttribute("onclick", "removeSeriesCards(event)")
     del.innerHTML = "X"
     tmpTitle.innerHTML = "Series"
@@ -243,3 +248,37 @@ function removeSeriesCards(event) {
     cardsContainer.removeChild(event.target.parentNode)
 }
 
+function addBookCards() {
+    let bookCardTemp = document.createElement('div');
+    let del = document.createElement('p');
+    let tmpTitle = document.createElement('h3');
+    let elem1 = document.createElement('h4');
+    let elem2 = document.createElement('h4');
+    let elem3 = document.createElement('h4');
+    let elem4 = document.createElement('h4');
+    let elem5 = document.createElement('h4');
+
+    bookCardTemp.classList.add("card-template")
+    del.setAttribute("onclick", "removeBookCards(event)")
+    del.innerHTML = "X"
+    tmpTitle.innerHTML = "Book"
+    elem1.innerHTML = `Title: ${myBooks[myBooks.length - 1].title}`
+    elem2.innerHTML = `Author: ${myBooks[myBooks.length - 1].author}`
+    elem3.innerHTML = `Genre: ${myBooks[myBooks.length - 1].genre}`
+    elem4.innerHTML = `Pages: ${myBooks[myBooks.length - 1].pages}`
+    elem5.innerHTML = `Progress: ${myBooks[myBooks.length - 1].currPage}`
+
+    bookCardTemp.appendChild(del)
+    bookCardTemp.appendChild(tmpTitle)
+    bookCardTemp.appendChild(elem1)
+    bookCardTemp.appendChild(elem2)
+    bookCardTemp.appendChild(elem3)
+    bookCardTemp.appendChild(elem4)
+    bookCardTemp.appendChild(elem5)
+
+    addCard.parentNode.insertBefore(bookCardTemp, addCard.nextSibling)
+}
+
+function removeBookCards(event) {
+    cardsContainer.removeChild(event.target.parentNode)
+}
