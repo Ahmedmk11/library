@@ -25,7 +25,7 @@ const moviesBtn = document.getElementById("movies-btn");
 const seriesBtn = document.getElementById("series-btn");
 const booksBtn = document.getElementById("books-btn");
 
-const movieCardTemp = document.getElementById("movie-card-template");
+const cardsContainer = document.getElementById("card-container")
 
 // ----------------
 // Objects & Constructors:
@@ -45,11 +45,12 @@ function Book(author, pages, title, genre, isFinished) {
 
 Book.prototype = Object.create(Entertainment.prototype);
 
-function Series(seasons, title, genre, currentEp, isFinished){
+function Series(seasons, title, genre, currentEp, currentSeason,isFinished){
     this.title = title;
     this.genre = genre;
     this.isFinished = isFinished;
     this.seasons = seasons;
+    this.currentSeason = currentSeason
     this.currentEp = currentEp
     this.type = 's';
 }
@@ -115,65 +116,130 @@ plus.addEventListener("click", function(){
 submitMovie.addEventListener("click", function() {
     
     let isFinished = false
-    let movieLength = document.getElementById("total-time").value
-    let currTime = document.getElementById("finished-time").value
     let movieTitle = document.getElementById("movie-title").value
     let movieGenre = document.getElementById("movie-genre").value
-    let newMovie = new Movie(movieLength, movieTitle, movieGenre, currTime, isFinished);
-    
+    let movieLength = document.getElementById("total-time").value
+    let currTime = document.getElementById("finished-time").value
     if (currTime === movieLength){
         isFinished = true
     }
-
+    
+    
     if (movieLength.length != 0 && currTime.length != 0 && movieTitle.length != 0 && movieGenre.length != 0) {
-
+        let newMovie = new Movie(movieLength, movieTitle, movieGenre, currTime, isFinished);
         myMovies.push(newMovie);
         moviePop.setAttribute("style" ,"display: none;")
-
-        let movieCardTemp = document.createElement('div');
-        let tmpTitle = document.createElement('h3');
-        let elem1 = document.createElement('h4');
-        let elem2 = document.createElement('h4');
-        let elem3 = document.createElement('h4');
-        let elem4 = document.createElement('h4');
-        
-        movieCardTemp.classList.add("movie-card-template")
-        tmpTitle.innerHTML = "Movie"
-        elem1.innerHTML = `Title: ${movieTitle}`
-        elem2.innerHTML = `Genre: ${movieGenre}`
-        elem3.innerHTML = `Length: ${movieLength}`
-        elem4.innerHTML = `Progress: ${currTime}`
-
-        movieCardTemp.appendChild(tmpTitle)
-        movieCardTemp.appendChild(elem1)
-        movieCardTemp.appendChild(elem2)
-        movieCardTemp.appendChild(elem3)
-        movieCardTemp.appendChild(elem4)
-
-        addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
+        addMovieCards()
     } else {
         console.log("error") //to be changed
     }
 });
 
 submitSeries.addEventListener("click", function() {
+
     let isFinished = false
-    if (document.getElementById("finished-seasons").value == document.getElementById("total-seasons").value){
+    let seriesTitle = document.getElementById("series-title").value
+    let seriesGenre = document.getElementById("series-genre").value
+    let totalSeasons = document.getElementById("total-seasons").value
+    let finishedSeasons = document.getElementById("finished-seasons").value
+    let currEpisode = document.getElementById("current-episode").value
+    if (finishedSeasons == totalSeasons){
         isFinished = true
     }
-
-    let newSeries = new Series(document.getElementById("total-seasons").value, document.getElementById("series-title").value, document.getElementById("series-genre").value, document.getElementById("current-episode").value, isFinished);
-    mySeries.push(newSeries);
-    // seriesPop.setAttribute("style" ,"display: none;")
+    
+    if (seriesTitle.length != 0 && seriesGenre.length != 0 && totalSeasons.length != 0 && finishedSeasons.length != 0 && currEpisode.length != 0) {
+        let newSeries = new Series(totalSeasons, seriesTitle, seriesGenre, currEpisode, finishedSeasons, isFinished);
+        mySeries.push(newSeries);
+        seriesPop.setAttribute("style" ,"display: none;");
+        addSeriesCards();
+    }else{
+        console.log("error") //to be changed
+    }
 });
 
 submitBook.addEventListener("click", function() {
+    
     let isFinished = false
-    if (document.getElementById("finished-pages").value == document.getElementById("total-pages").value){
+    let bookTitle = document.getElementById("book-title").value
+    let bookGenre = document.getElementById("book-genre").value
+    let authorName = document.getElementById("author-name").value
+    let totalPages = document.getElementById("total-pages").value
+    let currPage = document.getElementById("finished-pages").value
+    if (currPage == totalPages){
         isFinished = true
     }
-
-    let newBook = new Book(document.getElementById("author-name").value, document.getElementById("total-pages").value, document.getElementById("book-title").value, document.getElementById("book-genre").value, isFinished);
-    myBooks.push(newBook);
-    // bookPop.setAttribute("style", "display: none;")
+    
+    if (authorName.length != 0 && totalPages.length != 0 && bookTitle.length != 0 && bookGenre.length != 0 && currPage.length != 0) {
+        let newBook = new Book(authorName, totalPages, bookTitle, bookGenre, isFinished);
+        myBooks.push(newBook);
+        bookPop.setAttribute("style", "display: none;");
+        addBookCards();
+    }else{
+        console.log("error") //to be changed
+    }
 });
+
+function addMovieCards() {
+    let movieCardTemp = document.createElement('div');
+    let del = document.createElement('p');
+    let tmpTitle = document.createElement('h3');
+    let elem1 = document.createElement('h4');
+    let elem2 = document.createElement('h4');
+    let elem3 = document.createElement('h4');
+    let elem4 = document.createElement('h4');
+    
+    movieCardTemp.classList.add("movie-card-template")
+    del.setAttribute("onclick", "removeMovieCards(event)")
+    del.innerHTML = "X"
+    tmpTitle.innerHTML = "Movie"
+    elem1.innerHTML = `Title: ${myMovies[myMovies.length - 1].title}`
+    elem2.innerHTML = `Genre: ${myMovies[myMovies.length - 1].genre}`
+    elem3.innerHTML = `Length: ${myMovies[myMovies.length - 1].length}`
+    elem4.innerHTML = `Progress: ${myMovies[myMovies.length - 1].currentTime}`
+
+    movieCardTemp.appendChild(del)
+    movieCardTemp.appendChild(tmpTitle)
+    movieCardTemp.appendChild(elem1)
+    movieCardTemp.appendChild(elem2)
+    movieCardTemp.appendChild(elem3)
+    movieCardTemp.appendChild(elem4)
+
+    addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
+}
+
+function removeMovieCards(event) {
+    cardsContainer.removeChild(event.target.parentNode)
+}
+
+function addSeriesCards() {
+    let seriesCardTemp = document.createElement('div');
+    let del = document.createElement('p');
+    let tmpTitle = document.createElement('h3');
+    let elem1 = document.createElement('h4');
+    let elem2 = document.createElement('h4');
+    let elem3 = document.createElement('h4');
+    let elem4 = document.createElement('h4');
+
+    seriesCardTemp.classList.add("movie-card-template")
+    del.setAttribute("onclick", "removeSeriesCards(event)")
+    del.innerHTML = "X"
+    tmpTitle.innerHTML = "Series"
+    elem1.innerHTML = `Title: ${mySeries[mySeries.length - 1].title}`
+    elem2.innerHTML = `Genre: ${mySeries[mySeries.length - 1].genre}`
+    elem3.innerHTML = `Seasons: ${mySeries[mySeries.length - 1].seasons}`
+    elem4.innerHTML = `Progress: S${mySeries[mySeries.length - 1].currentSeason}:E${mySeries[mySeries.length - 1].currentEp}`
+
+    seriesCardTemp.appendChild(del)
+    seriesCardTemp.appendChild(tmpTitle)
+    seriesCardTemp.appendChild(elem1)
+    seriesCardTemp.appendChild(elem2)
+    seriesCardTemp.appendChild(elem3)
+    seriesCardTemp.appendChild(elem4)
+
+    addCard.parentNode.insertBefore(seriesCardTemp, addCard.nextSibling)
+}
+
+function removeSeriesCards(event) {
+    cardsContainer.removeChild(event.target.parentNode)
+}
+
