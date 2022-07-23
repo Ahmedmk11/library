@@ -5,12 +5,13 @@
 document.bookForm.finishedPages.setAttribute("max", document.getElementById("total-pages").value);
 document.seriesForm.finishedSeasons.setAttribute("max", document.getElementById("total-seasons").value);
 
-let mode = "movies"
+let mode = "movies";
 let myBooks = [];
 let mySeries = [];
 let myMovies = [];
 
 const plus = document.getElementById("add-new");
+const addCard = document.getElementById("add-card");
 
 const submitMovie = document.getElementById("submit-movie");
 const submitSeries = document.getElementById("submit-series");
@@ -20,31 +21,17 @@ const bookPop = document.getElementById("add-book-popup");
 const moviePop = document.getElementById("add-movie-popup");
 const seriesPop = document.getElementById("add-series-popup");
 
-const moviesBtn = document.getElementById("movies-btn")
-const seriesBtn = document.getElementById("series-btn")
-const booksBtn = document.getElementById("books-btn")
+const moviesBtn = document.getElementById("movies-btn");
+const seriesBtn = document.getElementById("series-btn");
+const booksBtn = document.getElementById("books-btn");
 
+const movieCardTemp = document.getElementById("movie-card-template");
 
 // ----------------
 // Objects & Constructors:
 // ----------------
 
 function Entertainment() {
-}
-
-Entertainment.prototype.getInfo = function () {
-    switch (this.type){
-        case 'b':
-            return `${this.title} by ${this.author}, ${this.genre}, ${this.pages}, ${(this.isFinished)? "read" : "not read yet"}`;
-        case 's':
-            return `${this.title}, ${this.genre}, S${this.seasons}, ${this.currentEp}, ${(this.isFinished)? "finished" : "not finished yet"}`;
-        case 'm':
-            if (this.minutes < 10){
-                return `${this.title}, ${this.genre}, ${this.hours}:0${this.minutes}, ${(this.isFinished)? "finished" : "not finished yet"}`;
-            }else{
-                return `${this.title}, ${this.genre}, ${this.hours}:${this.minutes}, ${(this.isFinished)? "finished" : "not finished yet"}`;
-            }
-    }
 }
 
 function Book(author, pages, title, genre, isFinished) {
@@ -69,12 +56,12 @@ function Series(seasons, title, genre, currentEp, isFinished){
 
 Series.prototype = Object.create(Entertainment.prototype);
 
-function Movie(hours, minutes, title, genre, isFinished){
+function Movie(length, title, genre, currTime, isFinished){
     this.title = title;
     this.genre = genre;
     this.isFinished = isFinished;
-    this.hours = hours;
-    this.minutes = minutes;
+    this.length = length
+    this.currentTime = currTime
     this.type = 'm';
 }
 
@@ -126,17 +113,47 @@ plus.addEventListener("click", function(){
 });
 
 submitMovie.addEventListener("click", function() {
+    
     let isFinished = false
-    if (document.getElementById("finished-time").value === document.getElementById("total-time").value){
+    let movieLength = document.getElementById("total-time").value
+    let currTime = document.getElementById("finished-time").value
+    let movieTitle = document.getElementById("movie-title").value
+    let movieGenre = document.getElementById("movie-genre").value
+    let newMovie = new Movie(movieLength, movieTitle, movieGenre, currTime, isFinished);
+    
+    if (currTime === movieLength){
         isFinished = true
     }
 
-    hrs = document.getElementById("total-hours").value.split(':')[0]
-    mins = document.getElementById("total-hours").value.split(':')[1]
+    if (movieLength.length != 0 && currTime.length != 0 && movieTitle.length != 0 && movieGenre.length != 0) {
 
-    let newMovie = new Series(hrs, mins, document.getElementById("movie-title").value, document.getElementById("movie-genre").value, isFinished);
-    myMovies.push(newMovie);
-    // moviePop.setAttribute("style" ,"display: none;")
+        myMovies.push(newMovie);
+        moviePop.setAttribute("style" ,"display: none;")
+
+        let movieCardTemp = document.createElement('div');
+        let tmpTitle = document.createElement('h3');
+        let elem1 = document.createElement('h4');
+        let elem2 = document.createElement('h4');
+        let elem3 = document.createElement('h4');
+        let elem4 = document.createElement('h4');
+        
+        movieCardTemp.classList.add("movie-card-template")
+        tmpTitle.innerHTML = "Movie"
+        elem1.innerHTML = `Title: ${movieTitle}`
+        elem2.innerHTML = `Genre: ${movieGenre}`
+        elem3.innerHTML = `Length: ${movieLength}`
+        elem4.innerHTML = `Progress: ${currTime}`
+
+        movieCardTemp.appendChild(tmpTitle)
+        movieCardTemp.appendChild(elem1)
+        movieCardTemp.appendChild(elem2)
+        movieCardTemp.appendChild(elem3)
+        movieCardTemp.appendChild(elem4)
+
+        addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
+    } else {
+        console.log("error") //to be changed
+    }
 });
 
 submitSeries.addEventListener("click", function() {
@@ -160,16 +177,3 @@ submitBook.addEventListener("click", function() {
     myBooks.push(newBook);
     // bookPop.setAttribute("style", "display: none;")
 });
-
-// function setTheme() {
-//     const root = document.documentElement;
-//     const newTheme = root.className === 'dark' ? 'light' : 'dark';
-//     root.className = newTheme;
-// }
-// document.querySelector('.theme-toggle').addEventListener('click', setTheme)
-
-// let currentYear = new Date().getFullYear(); 
-// let startYr = document.getElementById("starting-year").textContent;
-// if(startYr != currentYear){
-//     document.getElementById("current-year").textContent = `-${currentYear}`;
-// }
