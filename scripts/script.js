@@ -27,6 +27,9 @@ const booksBtn = document.getElementById("books-btn");
 
 const cardsContainer = document.getElementById("card-container")
 
+const sideBar = document.getElementById("side-bar");
+const arrowHide = document.getElementById("side-bar-hide");
+
 // ----------------
 // Objects & Constructors:
 // ----------------
@@ -73,7 +76,12 @@ Movie.prototype = Object.create(Entertainment.prototype);
 // Event Listeners:
 // ---------------- 
 
- moviesBtn.addEventListener("click", function() {
+arrowHide.addEventListener("click" , function() {
+    sideBar.classList.toggle("hide")
+    arrowHide.classList.toggle("arrowEffect")
+});
+
+moviesBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "movies"
     moviePop.setAttribute("style", "display: none;")
