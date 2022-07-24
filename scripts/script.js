@@ -2,9 +2,6 @@
 // Global variables & Constants:
 // ----------------
 
-document.bookForm.finishedPages.setAttribute("max", document.getElementById("total-pages").value);
-document.seriesForm.finishedSeasons.setAttribute("max", document.getElementById("total-seasons").value);
-
 let mode = "movies";
 let myBooks = [];
 let mySeries = [];
@@ -34,6 +31,13 @@ const children = sideBar.childNodes;
 const quitBook = document.getElementById("quit-book")
 const quitSeries = document.getElementById("quit-series")
 const quitMovie = document.getElementById("quit-movie")
+
+const movieForm = document.getElementById("movie-form")
+const seriesForm = document.getElementById("series-form")
+const bookForm = document.getElementById("book-form")
+
+const finishedPagesMax = document.getElementById("finished-pages")
+const finishedSeasonsMax = document.getElementById("finished-seasons")
 
 children[1].classList.add("appear")
 children[3].classList.add("appear")
@@ -145,22 +149,28 @@ booksBtn.addEventListener("click", function() {
 plus.addEventListener("click", function(){
     switch (mode) {
         case "movies":
-            moviePop.setAttribute("style", "display: block;")
-            seriesPop.setAttribute("style", "display: none;")
-            bookPop.setAttribute("style", "display: none;")
+            $(moviePop).hide().fadeIn()
             break;
         case "series":
-            seriesPop.setAttribute("style", "display: block;")
-            moviePop.setAttribute("style", "display: none;")
-            bookPop.setAttribute("style", "display: none;")
+            $(seriesPop).hide().fadeIn()
             break;
         case "books":
-            bookPop.setAttribute("style", "display: block;")
-            seriesPop.setAttribute("style", "display: none;")
-            moviePop.setAttribute("style", "display: none;")
+            $(bookPop).hide().fadeIn()
             break;
     }
 });
+
+quitMovie.addEventListener("click", function() {
+    $(moviePop).fadeOut()
+})
+
+quitBook.addEventListener("click", function() {
+    $(bookPop).fadeOut()
+})
+
+quitSeries.addEventListener("click", function() {
+    $(seriesPop).fadeOut()
+})
 
 submitMovie.addEventListener("click", function() {
     
@@ -226,18 +236,6 @@ submitBook.addEventListener("click", function() {
         console.log("error") //to be changed
     }
 });
-
-quitBook.addEventListener("click", function() {
-    bookPop.setAttribute("style", "display: none;")
-})
-
-quitMovie.addEventListener("click", function() {
-    moviePop.setAttribute("style", "display: none;")
-})
-
-quitSeries.addEventListener("click", function() {
-    seriesPop.setAttribute("style", "display: none;")
-})
 
 // ----------------
 // Functions:
@@ -446,4 +444,14 @@ function newAddCardfn() {
                 break;
         }
     });
+}
+
+function removeFadeOut(el, speed) {
+    var seconds = speed/1000;
+    el.style.transition = "opacity "+seconds+"s ease";
+
+    el.style.opacity = 0;
+    setTimeout(function() {
+        el.setAttribute("style","display:none;")
+    }, speed);
 }

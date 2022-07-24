@@ -230,7 +230,7 @@ img:hover {
 
 #side-bar-hide {
   position: fixed;
-  top: 24em;
+  top: 26em;
   transition: transform 0.3s linear;
   -webkit-transition: transform 0.3s linear;
   -moz-transition: transform 0.3s linear;
@@ -451,12 +451,13 @@ form {
   -o-border-radius: 10%;
   border: 2px solid black;
   z-index: 1001;
-  left: 50%;
-  top: 35%;
+  top: 50%; /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
   transform: translate(-50%, -50%);
 }
 form img {
   align-self: flex-start;
+  padding: 0%;
 }
 form label {
   font-size: 1.2rem;
@@ -485,6 +486,24 @@ form button:hover {
   -moz-transform: scale(1.1);
   -ms-transform: scale(1.1);
   -o-transform: scale(1.1);
+}
+
+input::placeholder {
+  font-size: 0.71rem;
+}
+
+.pop-up-appear {
+  animation: appear2 500ms linear 0s 1 normal forwards;
+  -webkit-animation: appear2 500ms linear 0s 1 normal forwards;
+}
+
+@keyframes appear2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
