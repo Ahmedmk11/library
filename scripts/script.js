@@ -29,7 +29,11 @@ const cardsContainer = document.getElementById("card-container")
 
 const sideBar = document.getElementById("side-bar");
 const arrowHide = document.getElementById("side-bar-hide");
+const children = sideBar.childNodes;
 
+children[1].classList.add("appear")
+children[3].classList.add("appear")
+sideBar.classList.add("show")
 // ----------------
 // Objects & Constructors:
 // ----------------
@@ -78,7 +82,13 @@ Movie.prototype = Object.create(Entertainment.prototype);
 
 arrowHide.addEventListener("click" , function() {
     sideBar.classList.toggle("hide")
+    sideBar.classList.toggle("show")
     arrowHide.classList.toggle("arrowEffect")
+    children[1].classList.toggle("disappear")
+    children[3].classList.toggle("disappear")
+    children[1].classList.toggle("appear")
+    children[3].classList.toggle("appear")
+
 });
 
 moviesBtn.addEventListener("click", function() {
