@@ -47,7 +47,8 @@ footer {
 }
 
 .types {
-    background-color: #4CAF50;
+    background-color: rgb(94,94,94,0.6);
+    border-radius: 25%;
     border: none;
     color: white;
     padding: 0.75em 1.5em;
@@ -56,6 +57,24 @@ footer {
     display: inline-block;
     font-size: 1.5rem;
     cursor: pointer;
+    -webkit-border-radius: 25%;
+    -moz-border-radius: 25%;
+    -ms-border-radius: 25%;
+    -o-border-radius: 25%;
+    transition: transform 300ms ease-in-out;
+    -webkit-transition: transform 300ms ease-in-out;
+    -moz-transition: transform 300ms ease-in-out;
+    -ms-transition: transform 300ms ease-in-out;
+    -o-transition: transform 300ms ease-in-out;
+    user-select: none;
+}
+
+.types:hover {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
 }
 
 #account {
@@ -106,7 +125,7 @@ img:hover {
 
 #card-container {
     width: 65%;
-    background-color: transparent; 
+    background-color: transparent;
     height: 100%;
     padding: 3em 3em 3em 3em;
     margin-top: auto;
@@ -118,24 +137,52 @@ img:hover {
     justify-content: space-evenly;
     align-items: center;
     gap: 3em 3em;
-}
-
-#add-card {
-    background-color: transparent;
+    box-shadow: 5px 5px 30px black;
     border-radius: 10%;
     -webkit-border-radius: 10%;
     -moz-border-radius: 10%;
     -ms-border-radius: 10%;
     -o-border-radius: 10%;
-    text-align: center;
-    width: 100%;
-    height: 100%;
+}
+
+#add-new {
+    height: 25px;
+    width: auto;
+    transition: transform 300ms ease-in-out;
+    -webkit-transition: transform 300ms ease-in-out;
+    -moz-transition: transform 300ms ease-in-out;
+    -ms-transition: transform 300ms ease-in-out;
+    -o-transition: transform 300ms ease-in-out;
+}
+
+#add-new:hover {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    -o-transform: scale(1.15);
+}
+
+#add-card {
+    background-color: transparent;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
     padding: 1em;
     box-sizing: border-box;
     box-shadow: 5px 5px 30px black;
     p {
         cursor: pointer;
     }
+    align-self: center;
+    justify-self: center;
 }
 
 .card-template {
@@ -237,12 +284,16 @@ input:checked + .slider:before {
 }
 
 .arrowEffect {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transition: 300ms linear all;
+    transform: rotate3d(0,1,0,180deg);
+    -webkit-transform: rotate3d(0,1,0,180deg);
+    -moz-transform: rotate3d(0,1,0,180deg);
+    -ms-transform: rotate3d(0,1,0,180deg);
+    -o-transform: rotate3d(0,1,0,180deg);
+    transition: 500ms linear all;
+    -webkit-transition: 500ms linear all;
+    -moz-transition: 500ms linear all;
+    -ms-transition: 500ms linear all;
+    -o-transition: 500ms linear all;
 }
 
 @keyframes shrink {
@@ -352,5 +403,9 @@ input:checked + .slider:before {
         -moz-transform: scale(0);
         -ms-transform: scale(0);
         -o-transform: scale(0);
+    }
 }
+
+.active-btn {
+    background-color: black !important;
 }

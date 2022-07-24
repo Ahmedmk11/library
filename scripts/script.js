@@ -34,6 +34,7 @@ const children = sideBar.childNodes;
 children[1].classList.add("appear")
 children[3].classList.add("appear")
 sideBar.classList.add("show")
+
 // ----------------
 // Objects & Constructors:
 // ----------------
@@ -101,6 +102,10 @@ moviesBtn.addEventListener("click", function() {
         const movie = myMovies[i];
         addMoviesfn(movie)
     }
+    moviesBtn.classList.add("active-btn");
+    seriesBtn.classList.remove("active-btn");
+    booksBtn.classList.remove("active-btn");
+
 })
 
 seriesBtn.addEventListener("click", function() {
@@ -113,6 +118,9 @@ seriesBtn.addEventListener("click", function() {
         const series = mySeries[i];
         addSeriesfn(series)
     }
+    moviesBtn.classList.remove("active-btn");
+    seriesBtn.classList.add("active-btn");
+    booksBtn.classList.remove("active-btn");
 })
 
 booksBtn.addEventListener("click", function() {
@@ -125,6 +133,9 @@ booksBtn.addEventListener("click", function() {
         const book = myBooks[i];
         addBooksfn(book)
     }
+    moviesBtn.classList.remove("active-btn");
+    seriesBtn.classList.remove("active-btn");
+    booksBtn.classList.add("active-btn");
 })
 
 plus.addEventListener("click", function(){
@@ -394,8 +405,8 @@ function removeBookCards(event) {
 function newAddCardfn() {
     cardsContainer.innerHTML = ""
     addCard = document.createElement('div')
-    plus = document.createElement('p')
-    plus.innerText = '+'
+    plus = document.createElement('img')
+    plus.setAttribute("src", "images/light/plus.png")
     addCard.id = "add-card"
     plus.id = "add-new"
     cardsContainer.appendChild(addCard)
