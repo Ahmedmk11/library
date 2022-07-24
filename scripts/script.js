@@ -31,6 +31,10 @@ const sideBar = document.getElementById("side-bar");
 const arrowHide = document.getElementById("side-bar-hide");
 const children = sideBar.childNodes;
 
+const quitBook = document.getElementById("quit-book")
+const quitSeries = document.getElementById("quit-series")
+const quitMovie = document.getElementById("quit-movie")
+
 children[1].classList.add("appear")
 children[3].classList.add("appear")
 sideBar.classList.add("show")
@@ -222,6 +226,18 @@ submitBook.addEventListener("click", function() {
         console.log("error") //to be changed
     }
 });
+
+quitBook.addEventListener("click", function() {
+    bookPop.setAttribute("style", "display: none;")
+})
+
+quitMovie.addEventListener("click", function() {
+    moviePop.setAttribute("style", "display: none;")
+})
+
+quitSeries.addEventListener("click", function() {
+    seriesPop.setAttribute("style", "display: none;")
+})
 
 // ----------------
 // Functions:
