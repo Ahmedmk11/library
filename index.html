@@ -20,7 +20,7 @@
         </header> 
         
         <hr>
-        <br>
+        <br>    
 
         <img id="side-bar-hide" src="images/light/left.png" alt="hide sidebar">
         
@@ -67,8 +67,10 @@
         </div>
 
         <div id="add-movie-popup" style="display: none;">
-            <form action="#" name="movieForm" method="get">
-                
+            <form id="movie-form" action="#" name="movieForm" method="get">
+                <img src="images/light/quit.png" alt="">
+                <h2>New Movie</h2>
+
                 <label for="movie-title">Movie Title</label>
                 <input type="text" id="movie-title" placeholder="Shrek" minlength="2" required>
                 
@@ -82,9 +84,7 @@
                 <input type="text" name="finishedTime" id="finished-time" placeholder="1:30" required>
 
                 <button type="submit" id="submit-movie" form="movieForm" value="Submit">Submit</button>
-
             </form>
-
         </div>
 
         <div id="add-series-popup" style="display: none;">
