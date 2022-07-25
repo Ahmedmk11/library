@@ -19,7 +19,7 @@ input {
     padding: 1em 1em;
     margin: 0.5em;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
     -webkit-border-radius: 8px;
@@ -507,17 +507,3 @@ input::placeholder {
     font-size: 0.71rem;
 }
 
-.pop-up-appear {
-    animation: appear2 500ms linear 0s 1 normal forwards;
-    -webkit-animation: appear2 500ms linear 0s 1 normal forwards;
-}
-
-@keyframes appear2 {
-    from {
-        opacity: 0;
-    }
-    
-    to {
-        opacity: 1;
-    }
-}

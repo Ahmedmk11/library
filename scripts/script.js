@@ -172,25 +172,59 @@ quitSeries.addEventListener("click", function() {
     $(seriesPop).fadeOut()
 })
 
+function validate(mt, mg, ml, ct) {
+    switch(mode) {
+        case 'm':
+            let input1 = document.getElementById(ct);
+            let input2 = document.getElementById(ml);
+            let input3 = document.getElementById(mg);
+            let input4 = document.getElementById(mt);
+
+            let validityState1 = input1.validity;
+            let validityState2 = input2.validity;
+            let validityState3 = input3.validity;
+            let validityState4 = input4.validity;
+        
+            if (validityState1.patternMismatch) {
+                ct.setCustomValidity('Progress should be in the format HH:MM');
+            } else if (validityState2.patternMismatch) {
+                ml.setCustomValidity('Movie length should be in the format HH:MM');
+            } else if (validityState3.tooShort) {
+                mg.setCustomValidity('Movie genre should contain at least three characters');
+            } else if (validityState4.tooShort) {
+                mt.setCustomValidity('Movie title should contain at least one character'); 
+            } else {
+                input.setCustomValidity('');
+            }
+            input.reportValidity();
+            break
+    }
+}
+
 submitMovie.addEventListener("click", function() {
-    
     let isFinished = false
-    let movieTitle = document.getElementById("movie-title").value
-    let movieGenre = document.getElementById("movie-genre").value
-    let movieLength = document.getElementById("total-time").value
-    let currTime = document.getElementById("finished-time").value
-    if (currTime === movieLength){
+    let movieTitle = document.getElementById("movie-title")
+    let movieGenre = document.getElementById("movie-genre")
+    let movieLength = document.getElementById("total-time")
+    let currTime = document.getElementById("finished-time")
+
+    if (currTime.value === movieLength.value){
         isFinished = true
     }
     
-    if (movieLength.length != 0 && currTime.length != 0 && movieTitle.length != 0 && movieGenre.length != 0) {
-        let newMovie = new Movie(movieLength, movieTitle, movieGenre, currTime, isFinished);
+    if (movieTitle.reportValidity() && movieGenre.reportValidity() && movieLength.reportValidity() && currTime.reportValidity()) {
+        let newMovie = new Movie(movieLength.value, movieTitle.value, movieGenre.value, currTime.value, isFinished);
         myMovies.push(newMovie);
-        moviePop.setAttribute("style" ,"display: none;")
+        $(moviePop).fadeOut()
         addMoviesfn(newMovie)
-    } else {
-        console.log("error") //to be changed
+        movieTitle.value = ''
+        movieGenre.value = ''
+        movieLength.value = ''
+        currTime.value = ''
     }
+
+    validate(movieTitle, movieGenre, movieLength, currTime)
+    
 });
 
 submitSeries.addEventListener("click", function() {
@@ -444,14 +478,4 @@ function newAddCardfn() {
                 break;
         }
     });
-}
-
-function removeFadeOut(el, speed) {
-    var seconds = speed/1000;
-    el.style.transition = "opacity "+seconds+"s ease";
-
-    el.style.opacity = 0;
-    setTimeout(function() {
-        el.setAttribute("style","display:none;")
-    }, speed);
 }

@@ -72,16 +72,16 @@
                 <img id="quit-movie" src="images/light/quit.png" alt="">
 
                 <label for="movie-title">Movie Title</label>
-                <input type="text" id="movie-title" placeholder="Shrek" minlength="2" required>
+                <input type="text" id="movie-title" placeholder="Shrek" minlength="1" required>
                 
                 <label for="movie-genre">Genre</label>
-                <input type="text" id="movie-genre" placeholder="Adventure, Comedy" required>
+                <input type="text" id="movie-genre" placeholder="Adventure, Comedy" minlength="3" required>
 
                 <label for="total-time">Length</label>
-                <input type="text" id="total-time" placeholder="1:30" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" minlength="4" maxlength="5" required>
+                <input type="text" id="total-time" placeholder="01:30" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" minlength="5" maxlength="5" required>
 
                 <label for="finished-time">Progress</label>
-                <input type="text" name="finishedTime" id="finished-time" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" placeholder="1:30" required>
+                <input type="text" name="finishedTime" id="finished-time" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" placeholder="01:30" required>
 
                 <button type="submit" id="submit-movie" form="movieForm" value="Submit">Submit</button>
             </form>
