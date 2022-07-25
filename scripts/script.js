@@ -39,10 +39,6 @@ const bookForm = document.getElementById("book-form")
 const finishedPagesMax = document.getElementById("finished-pages")
 const finishedSeasonsMax = document.getElementById("finished-seasons")
 
-children[1].classList.add("appear")
-children[3].classList.add("appear")
-sideBar.classList.add("show")
-
 // ----------------
 // Objects & Constructors:
 // ----------------
@@ -103,9 +99,6 @@ arrowHide.addEventListener("click" , function() {
 moviesBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "movies"
-    moviePop.setAttribute("style", "display: none;")
-    seriesPop.setAttribute("style", "display: none;")
-    bookPop.setAttribute("style", "display: none;")
     for (let i = 0; i < myMovies.length; i++) {
         const movie = myMovies[i];
         addMoviesfn(movie)
@@ -119,9 +112,6 @@ moviesBtn.addEventListener("click", function() {
 seriesBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "series"
-    moviePop.setAttribute("style", "display: none;")
-    seriesPop.setAttribute("style", "display: none;")
-    bookPop.setAttribute("style", "display: none;")
     for (let i = 0; i < mySeries.length; i++) {
         const series = mySeries[i];
         addSeriesfn(series)
@@ -134,9 +124,6 @@ seriesBtn.addEventListener("click", function() {
 booksBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "books"
-    moviePop.setAttribute("style", "display: none;")
-    seriesPop.setAttribute("style", "display: none;")
-    bookPop.setAttribute("style", "display: none;")
     for (let i = 0; i < myBooks.length; i++) {
         const book = myBooks[i];
         addBooksfn(book)
@@ -171,105 +158,6 @@ quitBook.addEventListener("click", function() {
 quitSeries.addEventListener("click", function() {
     $(seriesPop).fadeOut()
 })
-
-function validate(mt, mg, ml, ct) {
-    switch(mode) {
-        case 'm':
-            let input1 = document.getElementById(ct);
-            let input2 = document.getElementById(ml);
-            let input3 = document.getElementById(mg);
-            let input4 = document.getElementById(mt);
-
-            let validityState1 = input1.validity;
-            let validityState2 = input2.validity;
-            let validityState3 = input3.validity;
-            let validityState4 = input4.validity;
-        
-            if (validityState1.patternMismatch) {
-                ct.setCustomValidity('Progress should be in the format HH:MM');
-            } else if (validityState2.patternMismatch) {
-                ml.setCustomValidity('Movie length should be in the format HH:MM');
-            } else if (validityState3.tooShort) {
-                mg.setCustomValidity('Movie genre should contain at least three characters');
-            } else if (validityState4.tooShort) {
-                mt.setCustomValidity('Movie title should contain at least one character'); 
-            } else {
-                input.setCustomValidity('');
-            }
-            input.reportValidity();
-            break
-    }
-}
-
-submitMovie.addEventListener("click", function() {
-    let isFinished = false
-    let movieTitle = document.getElementById("movie-title")
-    let movieGenre = document.getElementById("movie-genre")
-    let movieLength = document.getElementById("total-time")
-    let currTime = document.getElementById("finished-time")
-
-    if (currTime.value === movieLength.value){
-        isFinished = true
-    }
-    
-    if (movieTitle.reportValidity() && movieGenre.reportValidity() && movieLength.reportValidity() && currTime.reportValidity()) {
-        let newMovie = new Movie(movieLength.value, movieTitle.value, movieGenre.value, currTime.value, isFinished);
-        myMovies.push(newMovie);
-        $(moviePop).fadeOut()
-        addMoviesfn(newMovie)
-        movieTitle.value = ''
-        movieGenre.value = ''
-        movieLength.value = ''
-        currTime.value = ''
-    }
-
-    validate(movieTitle, movieGenre, movieLength, currTime)
-    
-});
-
-submitSeries.addEventListener("click", function() {
-
-    let isFinished = false
-    let seriesTitle = document.getElementById("series-title").value
-    let seriesGenre = document.getElementById("series-genre").value
-    let totalSeasons = document.getElementById("total-seasons").value
-    let finishedSeasons = document.getElementById("finished-seasons").value
-    let currEpisode = document.getElementById("current-episode").value
-    if (finishedSeasons == totalSeasons){
-        isFinished = true
-    }
-    
-    if (seriesTitle.length != 0 && seriesGenre.length != 0 && totalSeasons.length != 0 && finishedSeasons.length != 0 && currEpisode.length != 0) {
-        let newSeries = new Series(totalSeasons, seriesTitle, seriesGenre, currEpisode, finishedSeasons, isFinished);
-        mySeries.push(newSeries);
-        seriesPop.setAttribute("style" ,"display: none;");
-        addSeriesfn(newSeries);
-    }else{
-        console.log("error") //to be changed
-    }
-});
-
-submitBook.addEventListener("click", function() {
-    
-    let isFinished = false
-    let bookTitle = document.getElementById("book-title").value
-    let bookGenre = document.getElementById("book-genre").value
-    let authorName = document.getElementById("author-name").value
-    let totalPages = document.getElementById("total-pages").value
-    let currPage = document.getElementById("finished-pages").value
-    if (currPage == totalPages){
-        isFinished = true
-    }
-    
-    if (authorName.length != 0 && totalPages.length != 0 && bookTitle.length != 0 && bookGenre.length != 0 && currPage.length != 0) {
-        let newBook = new Book(authorName, totalPages, currPage, bookTitle, bookGenre, isFinished);
-        myBooks.push(newBook);
-        bookPop.setAttribute("style", "display: none;");
-        addBooksfn(newBook);
-    }else{
-        console.log("error") //to be changed
-    }
-});
 
 // ----------------
 // Functions:
@@ -462,20 +350,92 @@ function newAddCardfn() {
     plus.addEventListener("click", function(){
         switch (mode) {
             case "movies":
-                moviePop.setAttribute("style", "display: block;")
-                seriesPop.setAttribute("style", "display: none;")
-                bookPop.setAttribute("style", "display: none;")
+                $(moviePop).hide().fadeIn()
                 break;
             case "series":
-                seriesPop.setAttribute("style", "display: block;")
-                moviePop.setAttribute("style", "display: none;")
-                bookPop.setAttribute("style", "display: none;")
+                $(seriesPop).hide().fadeIn()
                 break;
             case "books":
-                bookPop.setAttribute("style", "display: block;")
-                seriesPop.setAttribute("style", "display: none;")
-                moviePop.setAttribute("style", "display: none;")
+                $(bookPop).hide().fadeIn()
                 break;
         }
     });
+}
+
+function submitMovieBtn() {
+    let isFinished = false
+    let movieTitle = document.getElementById("movie-title")
+    let movieGenre = document.getElementById("movie-genre")
+    let movieLength = document.getElementById("total-time")
+    let currTime = document.getElementById("finished-time")
+
+    if (currTime.value === movieLength.value){
+        isFinished = true
+    }
+    
+    if (movieTitle.reportValidity() && movieGenre.reportValidity() && movieLength.reportValidity() && currTime.reportValidity()) {
+        let newMovie = new Movie(movieLength.value, movieTitle.value, movieGenre.value, currTime.value, isFinished);
+        myMovies.push(newMovie);
+        $(moviePop).fadeOut()
+        addMoviesfn(newMovie)
+        movieTitle.value = ''
+        movieGenre.value = ''
+        movieLength.value = ''
+        currTime.value = ''
+    }
+}
+
+function submitSeriesBtn() {
+    let isFinished = false
+    let seriesTitle = document.getElementById("series-title")
+    let seriesGenre = document.getElementById("series-genre")
+    let totalSeasons = document.getElementById("total-seasons")
+    let finishedSeasons = document.getElementById("finished-seasons")
+    let currEpisode = document.getElementById("current-episode")
+
+    if (finishedSeasons == totalSeasons){
+        isFinished = true
+    }
+    
+    finishedSeasons.setAttribute("max", totalSeasons.value)
+
+    if (seriesTitle.reportValidity() && seriesGenre.reportValidity() && totalSeasons.reportValidity() && finishedSeasons.reportValidity() 
+    && currEpisode.reportValidity()) {
+        let newSeries = new Series(totalSeasons.value, seriesTitle.value, seriesGenre.value, currEpisode.value, finishedSeasons.value, isFinished);
+        mySeries.push(newSeries);
+        $(seriesPop).fadeOut()
+        addSeriesfn(newSeries);
+        seriesTitle.value = ''
+        seriesGenre.value = ''
+        totalSeasons.value = ''
+        finishedSeasons.value = ''
+        currEpisode.value = ''
+    }
+}
+
+function submitBookBtn() {
+    let isFinished = false
+    let bookTitle = document.getElementById("book-title")
+    let bookGenre = document.getElementById("book-genre")
+    let authorName = document.getElementById("author-name")
+    let totalPages = document.getElementById("total-pages")
+    let currPage = document.getElementById("finished-pages")
+    
+    if (currPage.value == totalPages.value){
+        isFinished = true
+    }
+
+    currPage.setAttribute("max", totalPages.value)
+    
+    if (bookTitle.reportValidity() && bookGenre.reportValidity() && authorName.reportValidity() && totalPages.reportValidity() && currPage.reportValidity()) {
+        let newBook = new Book(authorName.value, totalPages.value, currPage.value, bookTitle.value, bookGenre.value, isFinished);
+        myBooks.push(newBook);
+        $(bookPop).fadeOut()
+        addBooksfn(newBook);
+        bookTitle.value = ''
+        bookGenre.value = ''
+        authorName.value = ''
+        totalPages.value = ''
+        currPage.value = ''
+    }
 }
