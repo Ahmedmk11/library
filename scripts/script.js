@@ -164,59 +164,83 @@ quitSeries.addEventListener("click", function() {
 // ---------------- 
 
 function addMoviesfn(movie) {
-    let movieCardTemp = document.createElement('div');
-    let del = document.createElement('p');
-    let tmpTitle = document.createElement('h3');
-    let elem1 = document.createElement('h4');
-    let elem2 = document.createElement('h4');
-    let elem3 = document.createElement('h4');
-    let elem4 = document.createElement('h4');
+    const node = document.getElementsByClassName("movie-sample")[0];
+    let movieCardTemp = node.cloneNode(true);
+    movieCardTemp.setAttribute("style", "display: flex;");
+    let del = movieCardTemp.querySelector('img');
+    let finished = movieCardTemp.querySelector('button');
+    let elem1 = movieCardTemp.querySelector('.mc-title');
+    let elem2 = movieCardTemp.querySelector('.mc-genre');
+    let elem3 = movieCardTemp.querySelector('.mc-progress');
+    let elem4 = movieCardTemp.querySelector('.mc-length');
+    del.setAttribute("onclick", "removeMovieCards(event)");
+    elem1.innerHTML = movie.title;
+    elem2.innerHTML = movie.genre;
+    elem3.innerHTML = movie.currentTime;
+    elem4.innerHTML = movie.length;
 
-    let l = document.createElement('h4');
-    l.innerHTML = "Finished?"
-    let togglerLabel = document.createElement("label")
-    let togglerInput =  document.createElement("input")
-    let togglerSpan = document.createElement("span")
-    togglerLabel.classList.add("switch")
-    togglerInput.setAttribute("type", "checkbox")
-    togglerSpan.classList.add("slider", "round")
+    finished.addEventListener("click", function() {
+        finished.setAttribute("disabled", '');
+        elem3.innerHTML = movie.length
+    });
 
-    movieCardTemp.classList.add("card-template")
-    del.setAttribute("onclick", "removeMovieCards(event)")
-    del.innerHTML = "X"
-    tmpTitle.innerHTML = "Movie"
-    elem1.innerHTML = `Title: ${movie.title}`
-    elem2.innerHTML = `Genre: ${movie.genre}`
-    elem3.innerHTML = `Length: ${movie.length}`
-    elem4.innerHTML = `Progress: ${movie.currentTime}`
-
-    movieCardTemp.appendChild(del)
-    movieCardTemp.appendChild(tmpTitle)
-    movieCardTemp.appendChild(elem1)
-    movieCardTemp.appendChild(elem2)
-    movieCardTemp.appendChild(elem3)
-    movieCardTemp.appendChild(elem4)
-
-    movieCardTemp.appendChild(l)
-    movieCardTemp.appendChild(togglerLabel)
-    togglerLabel.appendChild(togglerInput)
-    togglerLabel.appendChild(togglerSpan)
-
-    togglerInput.addEventListener("change" , function() {
-        if (togglerInput.checked){
-            elem4.innerHTML = `Progress: ${movie.length}`
-            movie.currentTime = movie.length
-        }else{
-            elem4.innerHTML = "Progress: ?"
-            movie.currentTime = '?'
-        }
-    })
-
-    addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
+    addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling);
 }
 
+// function addMoviesfn(movie) {
+//     let movieCardTemp = document.createElement('div');
+//     let del = document.createElement('img');
+//     let tmpTitle = document.createElement('h3');
+//     let elem1 = document.createElement('h4');
+//     let elem2 = document.createElement('h4');
+//     let elem3 = document.createElement('h4');
+//     let elem4 = document.createElement('h4');
+
+//     let l = document.createElement('h4');
+//     l.innerHTML = "Finished?"
+//     let togglerLabel = document.createElement("label")
+//     let togglerInput =  document.createElement("input")
+//     let togglerSpan = document.createElement("span")
+//     togglerLabel.classList.add("switch")
+//     togglerInput.setAttribute("type", "checkbox")
+//     togglerSpan.classList.add("slider", "round")
+
+//     movieCardTemp.classList.add("card-template")
+//     del.setAttribute("onclick", "removeMovieCards(event)")
+//     del.setAttribute("src", "images/light/quit.png")
+//     tmpTitle.innerHTML = "Movie"
+//     elem1.innerHTML = `Title: ${movie.title}`
+//     elem2.innerHTML = `Genre: ${movie.genre}`
+//     elem3.innerHTML = `Length: ${movie.length}`
+//     elem4.innerHTML = `Progress: ${movie.currentTime}`
+
+//     movieCardTemp.appendChild(del)
+//     movieCardTemp.appendChild(tmpTitle)
+//     movieCardTemp.appendChild(elem1)
+//     movieCardTemp.appendChild(elem2)
+//     movieCardTemp.appendChild(elem3)
+//     movieCardTemp.appendChild(elem4)
+
+//     movieCardTemp.appendChild(l)
+//     movieCardTemp.appendChild(togglerLabel)
+//     togglerLabel.appendChild(togglerInput)
+//     togglerLabel.appendChild(togglerSpan)
+
+//     togglerInput.addEventListener("change" , function() {
+//         if (togglerInput.checked){
+//             elem4.innerHTML = `Progress: ${movie.length}`
+//             movie.currentTime = movie.length
+//         }else{
+//             elem4.innerHTML = "Progress: ?"
+//             movie.currentTime = '?'
+//         }
+//     })
+
+//     addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
+// }
+
 function removeMovieCards(event) {
-    cardsContainer.removeChild(event.target.parentNode)
+    cardsContainer.removeChild(event.target.parentNode.parentNode.parentNode)
     myMovies.splice(myMovies.indexOf(event.target), 1)
 }
 
