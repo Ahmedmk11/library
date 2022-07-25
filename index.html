@@ -25,14 +25,14 @@
 
         <img id="side-bar-hide" src="images/light/left.png" alt="hide sidebar">
         
-        <div id="side-bar" class="show">
-            <div id="side-items" class="appear">
+        <div id="side-bar">
+            <div id="side-items">
                 <button id="movies-btn" class="types active-btn">Movies</button>
                 <button id="series-btn" class="types">Series</button>
                 <button id="books-btn" class="types">Books</button>
             </div>
 
-            <footer class="appear">
+            <footer>
                 <p><strong>Made by </strong><a href="https://github.com/Ahmedmk11" target="_blank">Ahmed Mahmoud</a></p>
                 <p>Copyright © <span id="starting-year">2022</span><span id="current-year"></span></p>
             </footer>
@@ -111,7 +111,7 @@
 
         </div>
 
-        <div class="movie-sample" style="display: none;">
+        <div class="movie-sample msb-sample" style="display: none;">
             <div class="one">
                 <div>
                     <img src="images/light/quit.png" alt="quit">
@@ -124,7 +124,6 @@
                     <h3>Progress</h3>
                     <p class="mc-progress"></p>
                 </div>
-                <div class="vl"></div>
                 <div>
                     <h3>Length</h3>
                     <p class="mc-length"></p>
@@ -133,6 +132,64 @@
             <div class="three">
                 <h3>Genre</h3>
                 <p class="mc-genre"></p>
+            </div>
+            <div class="four">
+                <button>Finished</button>
+            </div>
+        </div>
+
+
+        <div class="series-sample msb-sample" style="display: none;">
+            <div class="one">
+                <div>
+                    <img src="images/light/quit.png" alt="quit">
+                    <h4>Series</h4>
+                </div>
+                <h2 class="sc-title"></h2>
+            </div>
+            <div class="two">
+                <div>
+                    <h3>Progress</h3>
+                    <p class="sc-current"></p>
+                </div>
+                <div>
+                    <h3>Seasons</h3>
+                    <p class="sc-seasons"></p>
+                </div>
+            </div>
+            <div class="three">
+                <h3>Genre</h3>
+                <p class="sc-genre"></p>
+            </div>
+            <div class="four">
+                <button>Finished</button>
+            </div>
+        </div>
+
+        <div class="book-sample msb-sample" style="display: none;">
+            <div class="bc">
+                <div>
+                    <img src="images/light/quit.png" alt="quit">
+                    <div>
+                        <h4>Book</h4>
+                        <h4 class="bc-author"></h4>
+                    </div>
+                </div>
+                <h2 class="bc-title"></h2>
+            </div>
+            <div class="two">
+                <div>
+                    <h3>Progress</h3>
+                    <p class="bc-current"></p>
+                </div>
+                <div>
+                    <h3>Pages</h3>
+                    <p class="bc-pages"></p>
+                </div>
+            </div>
+            <div class="three">
+                <h3>Genre</h3>
+                <p class="bc-genre"></p>
             </div>
             <div class="four">
                 <button>Finished</button>

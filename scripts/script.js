@@ -3,9 +3,16 @@
 // ----------------
 
 let mode = "movies";
+let arrowFlag = false
+let clicked = false
+
 let myBooks = [];
 let mySeries = [];
 let myMovies = [];
+
+let myBooksNodes = [];
+let mySeriesNodes = [];
+let myMoviesNodes = [];
 
 let plus = document.getElementById("add-new");
 let addCard = document.getElementById("add-card");
@@ -86,22 +93,38 @@ Movie.prototype = Object.create(Entertainment.prototype);
 // ---------------- 
 
 arrowHide.addEventListener("click" , function() {
-    sideBar.classList.toggle("hide")
-    sideBar.classList.toggle("show")
+    clicked = !clicked
     arrowHide.classList.toggle("arrowEffect")
-    children[1].classList.toggle("disappear")
-    children[3].classList.toggle("disappear")
-    children[1].classList.toggle("appear")
-    children[3].classList.toggle("appear")
-
+    if (arrowFlag){
+        if (clicked) {
+            sideBar.classList.remove("show")
+            children[1].classList.remove("appear")
+            children[3].classList.remove("appear")
+            sideBar.classList.add("hide")
+            children[1].classList.add("disappear")
+            children[3].classList.add("disappear")
+        }else{
+            sideBar.classList.remove("hide")
+            children[1].classList.remove("disappear")
+            children[3].classList.remove("disappear")
+            sideBar.classList.add("show")
+            children[1].classList.add("appear")
+            children[3].classList.add("appear")
+        }
+    }else{
+        arrowFlag = true
+        sideBar.classList.add("hide")
+        children[1].classList.add("disappear")
+        children[3].classList.add("disappear")
+    }
 });
 
 moviesBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "movies"
-    for (let i = 0; i < myMovies.length; i++) {
-        const movie = myMovies[i];
-        addMoviesfn(movie)
+    for (let i = 0; i < myMoviesNodes.length; i++) {
+        const movie = myMoviesNodes[i];
+        addCard.parentNode.insertBefore(movie, addCard.nextSibling);
     }
     moviesBtn.classList.add("active-btn");
     seriesBtn.classList.remove("active-btn");
@@ -113,8 +136,8 @@ seriesBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "series"
     for (let i = 0; i < mySeries.length; i++) {
-        const series = mySeries[i];
-        addSeriesfn(series)
+        const series = mySeriesNodes[i];
+        addCard.parentNode.insertBefore(series, addCard.nextSibling);
     }
     moviesBtn.classList.remove("active-btn");
     seriesBtn.classList.add("active-btn");
@@ -125,8 +148,8 @@ booksBtn.addEventListener("click", function() {
     newAddCardfn()
     mode = "books"
     for (let i = 0; i < myBooks.length; i++) {
-        const book = myBooks[i];
-        addBooksfn(book)
+        const book = myBooksNodes[i];
+        addCard.parentNode.insertBefore(book, addCard.nextSibling);
     }
     moviesBtn.classList.remove("active-btn");
     seriesBtn.classList.remove("active-btn");
@@ -167,6 +190,7 @@ function addMoviesfn(movie) {
     const node = document.getElementsByClassName("movie-sample")[0];
     let movieCardTemp = node.cloneNode(true);
     movieCardTemp.setAttribute("style", "display: flex;");
+    movieCardTemp.id = `movie-${myMovies.length - 1}`
     let del = movieCardTemp.querySelector('img');
     let finished = movieCardTemp.querySelector('button');
     let elem1 = movieCardTemp.querySelector('.mc-title');
@@ -174,192 +198,155 @@ function addMoviesfn(movie) {
     let elem3 = movieCardTemp.querySelector('.mc-progress');
     let elem4 = movieCardTemp.querySelector('.mc-length');
     del.setAttribute("onclick", "removeMovieCards(event)");
+    finished.setAttribute("onclick", "finishedMovie(event)")
+
     elem1.innerHTML = movie.title;
     elem2.innerHTML = movie.genre;
     elem3.innerHTML = movie.currentTime;
     elem4.innerHTML = movie.length;
 
-    finished.addEventListener("click", function() {
+    finished.removeAttribute("disabled");
+    if (movie.isFinished) {
         finished.setAttribute("disabled", '');
-        elem3.innerHTML = movie.length
-    });
+    }
 
     addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling);
+    myMoviesNodes.push(movieCardTemp);
 }
 
-// function addMoviesfn(movie) {
-//     let movieCardTemp = document.createElement('div');
-//     let del = document.createElement('img');
-//     let tmpTitle = document.createElement('h3');
-//     let elem1 = document.createElement('h4');
-//     let elem2 = document.createElement('h4');
-//     let elem3 = document.createElement('h4');
-//     let elem4 = document.createElement('h4');
-
-//     let l = document.createElement('h4');
-//     l.innerHTML = "Finished?"
-//     let togglerLabel = document.createElement("label")
-//     let togglerInput =  document.createElement("input")
-//     let togglerSpan = document.createElement("span")
-//     togglerLabel.classList.add("switch")
-//     togglerInput.setAttribute("type", "checkbox")
-//     togglerSpan.classList.add("slider", "round")
-
-//     movieCardTemp.classList.add("card-template")
-//     del.setAttribute("onclick", "removeMovieCards(event)")
-//     del.setAttribute("src", "images/light/quit.png")
-//     tmpTitle.innerHTML = "Movie"
-//     elem1.innerHTML = `Title: ${movie.title}`
-//     elem2.innerHTML = `Genre: ${movie.genre}`
-//     elem3.innerHTML = `Length: ${movie.length}`
-//     elem4.innerHTML = `Progress: ${movie.currentTime}`
-
-//     movieCardTemp.appendChild(del)
-//     movieCardTemp.appendChild(tmpTitle)
-//     movieCardTemp.appendChild(elem1)
-//     movieCardTemp.appendChild(elem2)
-//     movieCardTemp.appendChild(elem3)
-//     movieCardTemp.appendChild(elem4)
-
-//     movieCardTemp.appendChild(l)
-//     movieCardTemp.appendChild(togglerLabel)
-//     togglerLabel.appendChild(togglerInput)
-//     togglerLabel.appendChild(togglerSpan)
-
-//     togglerInput.addEventListener("change" , function() {
-//         if (togglerInput.checked){
-//             elem4.innerHTML = `Progress: ${movie.length}`
-//             movie.currentTime = movie.length
-//         }else{
-//             elem4.innerHTML = "Progress: ?"
-//             movie.currentTime = '?'
-//         }
-//     })
-
-//     addCard.parentNode.insertBefore(movieCardTemp, addCard.nextSibling)
-// }
+function finishedMovie(event) {
+    let movieCardTemp = event.target.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.id.split('-')[1]
+    let elem = movieCardTemp.querySelector('.mc-progress');
+    
+    myMovies[index].currentTime = myMovies[index].length
+    myMovies[index].isFinished = true
+    event.target.setAttribute("disabled", '');
+    elem.innerHTML = myMovies[index].length
+}
 
 function removeMovieCards(event) {
-    cardsContainer.removeChild(event.target.parentNode.parentNode.parentNode)
-    myMovies.splice(myMovies.indexOf(event.target), 1)
+    let movieCardTemp = event.target.parentNode.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.parentNode.id.split('-')[1]
+
+    myMoviesNodes.splice(index, 1)
+    myMovies.splice(index, 1)
+    cardsContainer.removeChild(movieCardTemp)
+
+    let i = 0
+    myMoviesNodes.forEach(node => {
+        node.id = `movie-${i}`
+        i++;
+    });
 }
 
 function addSeriesfn(series) {
-    let seriesCardTemp = document.createElement('div');
-    let del = document.createElement('p');
-    let tmpTitle = document.createElement('h3');
-    let elem1 = document.createElement('h4');
-    let elem2 = document.createElement('h4');
-    let elem3 = document.createElement('h4');
-    let elem4 = document.createElement('h4');
+    const node = document.getElementsByClassName("series-sample")[0];
+    let seriesCardTemp = node.cloneNode(true);
+    seriesCardTemp.setAttribute("style", "display: flex;");
+    seriesCardTemp.id = `series-${mySeries.length - 1}`
+    let del = seriesCardTemp.querySelector('img');
+    let finished = seriesCardTemp.querySelector('button');
+    let elem1 = seriesCardTemp.querySelector('.sc-title');
+    let elem2 = seriesCardTemp.querySelector('.sc-genre');
+    let elem3 = seriesCardTemp.querySelector('.sc-seasons');
+    let elem4 = seriesCardTemp.querySelector('.sc-current');
+    del.setAttribute("onclick", "removeSeriesCards(event)");
+    finished.setAttribute("onclick", "finishedSeries(event)")
+    elem1.innerHTML = series.title;
+    elem2.innerHTML = series.genre;
+    elem3.innerHTML = `S${series.seasons}`;
+    elem4.innerHTML = `S${series.currentSeason}:E${series.currentEp}`
 
-    let l = document.createElement('h4');
-    l.innerHTML = "Finished?"
-    let togglerLabel = document.createElement("label")
-    let togglerInput =  document.createElement("input")
-    let togglerSpan = document.createElement("span")
-    togglerLabel.classList.add("switch")
-    togglerInput.setAttribute("type", "checkbox")
-    togglerSpan.classList.add("slider", "round")
+    finished.removeAttribute("disabled");
+    if (series.isFinished) {
+        finished.setAttribute("disabled", '');
+    }
 
-    seriesCardTemp.classList.add("card-template")
-    del.setAttribute("onclick", "removeSeriesCards(event)")
-    del.innerHTML = "X"
-    tmpTitle.innerHTML = "Series"
-    elem1.innerHTML = `Title: ${series.title}`
-    elem2.innerHTML = `Genre: ${series.genre}`
-    elem3.innerHTML = `Seasons: ${series.seasons}`
-    elem4.innerHTML = `Progress: S${series.currentSeason}:E${series.currentEp}`
+    addCard.parentNode.insertBefore(seriesCardTemp, addCard.nextSibling);
+    mySeriesNodes.push(seriesCardTemp);
+}
 
-    seriesCardTemp.appendChild(del)
-    seriesCardTemp.appendChild(tmpTitle)
-    seriesCardTemp.appendChild(elem1)
-    seriesCardTemp.appendChild(elem2)
-    seriesCardTemp.appendChild(elem3)
-    seriesCardTemp.appendChild(elem4)
-
-    seriesCardTemp.appendChild(l)
-    seriesCardTemp.appendChild(togglerLabel)
-    togglerLabel.appendChild(togglerInput)
-    togglerLabel.appendChild(togglerSpan)
-
-    togglerInput.addEventListener("change" , function() {
-        if (togglerInput.checked){
-            elem4.innerHTML = `Progress: S${series.seasons}`
-            series.currentSeason = series.seasons
-            series.currentEp = "Finale"
-        }else{
-            elem4.innerHTML = "Progress: S?E?"
-            series.currEpisode = '?'
-        }
-    })
-
-    addCard.parentNode.insertBefore(seriesCardTemp, addCard.nextSibling)
+function finishedSeries(event) {
+    let seriesCardTemp = event.target.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.id.split('-')[1]
+    let elem = seriesCardTemp.querySelector('.sc-current');
+    
+    mySeries[index].currentSeason = mySeries[index].seasons
+    mySeries[index].isFinished = true
+    event.target.setAttribute("disabled", '');
+    elem.innerHTML = `S${mySeries[index].seasons}`
 }
 
 function removeSeriesCards(event) {
-    cardsContainer.removeChild(event.target.parentNode)
-    mySeries.splice(mySeries.indexOf(event.target), 1)
+    let seriesCardTemp = event.target.parentNode.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.parentNode.id.split('-')[1]
+
+    mySeriesNodes.splice(index, 1)
+    mySeries.splice(index, 1)
+    cardsContainer.removeChild(seriesCardTemp)
+
+    let i = 0
+    mySeriesNodes.forEach(node => {
+        node.id = `series-${i}`
+        i++;
+    });
 }
 
 function addBooksfn(book) {
-    let bookCardTemp = document.createElement('div');
-    let del = document.createElement('p');
-    let tmpTitle = document.createElement('h3');
-    let elem1 = document.createElement('h4');
-    let elem2 = document.createElement('h4');
-    let elem3 = document.createElement('h4');
-    let elem4 = document.createElement('h4');
-    let elem5 = document.createElement('h4');
+    const node = document.getElementsByClassName("book-sample")[0];
+    let bookCardTemp = node.cloneNode(true);
+    bookCardTemp.setAttribute("style", "display: flex;");
+    bookCardTemp.id = `book-${myBooks.length - 1}`
+    let del = bookCardTemp.querySelector('img');
+    let finished = bookCardTemp.querySelector('button');
+    let elem1 = bookCardTemp.querySelector('.bc-title');
+    let elem2 = bookCardTemp.querySelector('.bc-genre');
+    let elem3 = bookCardTemp.querySelector('.bc-author');
+    let elem4 = bookCardTemp.querySelector('.bc-pages');
+    let elem5 = bookCardTemp.querySelector('.bc-current');
 
-    let l = document.createElement('h4');
-    l.innerHTML = "Finished?"
-    let togglerLabel = document.createElement("label")
-    let togglerInput =  document.createElement("input")
-    let togglerSpan = document.createElement("span")
-    togglerLabel.classList.add("switch")
-    togglerInput.setAttribute("type", "checkbox")
-    togglerSpan.classList.add("slider", "round")
+    finished.removeAttribute("disabled");
+    if (book.isFinished) {
+        finished.setAttribute("disabled", '');
+    }
 
-    bookCardTemp.classList.add("card-template")
-    del.setAttribute("onclick", "removeBookCards(event)")
-    del.innerHTML = "X"
-    tmpTitle.innerHTML = "Book"
-    elem1.innerHTML = `Title: ${book.title}`
-    elem2.innerHTML = `Author: ${book.author}`
-    elem3.innerHTML = `Genre: ${book.genre}`
-    elem4.innerHTML = `Pages: ${book.pages}`
-    elem5.innerHTML = `Progress: ${book.currPage}`
+    del.setAttribute("onclick", "removeBookCards(event)");
+    finished.setAttribute("onclick", "finishedBook(event)")
+    elem1.innerHTML = book.title;
+    elem2.innerHTML = book.genre;
+    elem3.innerHTML = `by ${book.author}`;
+    elem4.innerHTML = book.pages;
+    elem5.innerHTML = book.currPage;
 
-    bookCardTemp.appendChild(del)
-    bookCardTemp.appendChild(tmpTitle)
-    bookCardTemp.appendChild(elem1)
-    bookCardTemp.appendChild(elem2)
-    bookCardTemp.appendChild(elem3)
-    bookCardTemp.appendChild(elem4)
-    bookCardTemp.appendChild(elem5)
+    addCard.parentNode.insertBefore(bookCardTemp, addCard.nextSibling);
+    myBooksNodes.push(bookCardTemp);
+}
 
-    bookCardTemp.appendChild(l)
-    bookCardTemp.appendChild(togglerLabel)
-    togglerLabel.appendChild(togglerInput)
-    togglerLabel.appendChild(togglerSpan)
-
-    togglerInput.addEventListener("change" , function() {
-        if (togglerInput.checked){
-            elem5.innerHTML = `Progress: ${book.pages}`
-            book.currPage = book.pages
-        }else{
-            elem5.innerHTML = "Progress: ?"
-            book.currPage = '?'
-        }
-    })
-
-    addCard.parentNode.insertBefore(bookCardTemp, addCard.nextSibling)
+function finishedBook(event) {
+    let bookCardTemp = event.target.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.id.split('-')[1]
+    let elem = bookCardTemp.querySelector('.bc-current');
+    
+    myBooks[index].currPage = myBooks[index].pages
+    myBooks[index].isFinished = true
+    event.target.setAttribute("disabled", '');
+    elem.innerHTML = myBooks[index].pages
 }
 
 function removeBookCards(event) {
-    cardsContainer.removeChild(event.target.parentNode)
-    myBooks.splice(myBooks.indexOf(event.target), 1)
+    let bookCardTemp = event.target.parentNode.parentNode.parentNode
+    let index = event.target.parentNode.parentNode.parentNode.id.split('-')[1]
+
+    myBooksNodes.splice(index, 1)
+    myBooks.splice(index, 1)
+    cardsContainer.removeChild(bookCardTemp)
+
+    let i = 0
+    myBooksNodes.forEach(node => {
+        node.id = `series-${i}`
+        i++;
+    });
 }
 
 function newAddCardfn() {
