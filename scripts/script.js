@@ -177,38 +177,6 @@ plus.addEventListener("click", function(){
     }
 });
 
-window.addEventListener("keydown", function(e){
-    if (e.key === 'n') {
-        switch (mode) {
-            case "movies":
-                $(moviePop).hide().fadeIn()
-                break;
-            case "series":
-                $(seriesPop).hide().fadeIn()
-                break;
-            case "books":
-                $(bookPop).hide().fadeIn()
-                break;
-        }
-    }
-});
-
-window.addEventListener("keydown", function(e){
-    if (e.key === 'q') {
-        switch (mode) {
-            case "movies":
-                $(moviePop).fadeOut()
-                break;
-            case "series":
-                $(seriesPop).fadeOut()
-                break;
-            case "books":
-                $(bookPop).fadeOut()
-                break;
-        }
-    }
-});
-
 quitMovie.addEventListener("click", function() {
     $('body').unbind('touchmove')
     $(moviePop).fadeOut()
