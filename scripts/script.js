@@ -5,46 +5,37 @@
 let mode = "movies";
 let arrowFlag = false
 let clicked = false
-
 let myBooks = [];
 let mySeries = [];
 let myMovies = [];
-
 let myBooksNodes = [];
 let mySeriesNodes = [];
 let myMoviesNodes = [];
-
 let plus = document.getElementById("add-new");
 let addCard = document.getElementById("add-card");
 
 const submitMovie = document.getElementById("submit-movie");
 const submitSeries = document.getElementById("submit-series");
 const submitBook = document.getElementById("submit-book");
-
 const bookPop = document.getElementById("add-book-popup");
 const moviePop = document.getElementById("add-movie-popup");
 const seriesPop = document.getElementById("add-series-popup");
-
 const moviesBtn = document.getElementById("movies-btn");
 const seriesBtn = document.getElementById("series-btn");
 const booksBtn = document.getElementById("books-btn");
-
 const cardsContainer = document.getElementById("card-container")
-
 const sideBar = document.getElementById("side-bar");
 const arrowHide = document.getElementById("side-bar-hide");
-const children = sideBar.childNodes;
-
+const usrl = document.getElementById("usr-icon")
 const quitBook = document.getElementById("quit-book")
 const quitSeries = document.getElementById("quit-series")
 const quitMovie = document.getElementById("quit-movie")
-
 const movieForm = document.getElementById("movie-form")
 const seriesForm = document.getElementById("series-form")
 const bookForm = document.getElementById("book-form")
-
 const finishedPagesMax = document.getElementById("finished-pages")
 const finishedSeasonsMax = document.getElementById("finished-seasons")
+const children = sideBar.childNodes;
 
 // ----------------
 // Objects & Constructors:
@@ -94,6 +85,12 @@ Movie.prototype = Object.create(Entertainment.prototype);
 
 document.querySelector('.theme-toggle').addEventListener('click', setTheme)
 
+usrl.addEventListener('click', function() {
+    const rick = document.getElementById('rick');
+    rick.click()
+})
+
+
 arrowHide.addEventListener("click" , function() {
     clicked = !clicked
     arrowHide.classList.toggle("arrowEffect")
@@ -102,22 +99,29 @@ arrowHide.addEventListener("click" , function() {
             sideBar.classList.remove("show")
             children[1].classList.remove("appear")
             children[3].classList.remove("appear")
+            cardsContainer.classList.remove("go-right")
             sideBar.classList.add("hide")
             children[1].classList.add("disappear")
             children[3].classList.add("disappear")
+            cardsContainer.classList.add("go-center")
+
         }else{
             sideBar.classList.remove("hide")
             children[1].classList.remove("disappear")
             children[3].classList.remove("disappear")
+            cardsContainer.classList.remove("go-center")
             sideBar.classList.add("show")
             children[1].classList.add("appear")
             children[3].classList.add("appear")
+            cardsContainer.classList.add("go-right")
+
         }
     }else{
         arrowFlag = true
         sideBar.classList.add("hide")
         children[1].classList.add("disappear")
         children[3].classList.add("disappear")
+        cardsContainer.classList.add("go-center")
     }
 });
 
@@ -169,6 +173,38 @@ plus.addEventListener("click", function(){
         case "books":
             $(bookPop).hide().fadeIn()
             break;
+    }
+});
+
+window.addEventListener("keydown", function(e){
+    if (e.key === 'n') {
+        switch (mode) {
+            case "movies":
+                $(moviePop).hide().fadeIn()
+                break;
+            case "series":
+                $(seriesPop).hide().fadeIn()
+                break;
+            case "books":
+                $(bookPop).hide().fadeIn()
+                break;
+        }
+    }
+});
+
+window.addEventListener("keydown", function(e){
+    if (e.key === 'q') {
+        switch (mode) {
+            case "movies":
+                $(moviePop).fadeOut()
+                break;
+            case "series":
+                $(seriesPop).fadeOut()
+                break;
+            case "books":
+                $(bookPop).fadeOut()
+                break;
+        }
     }
 });
 
