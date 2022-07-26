@@ -48,13 +48,32 @@ and (max-height: 896px)  {
             flex-direction: row;
             align-items: flex-start;
             justify-content: space-evenly;
+            margin-bottom: 4em;
         }
         .types {
             font-size: 0.8rem;
         }
         #card-container {
-            min-height: 40%;
-            margin-top: 1.2em;
+            position: absolute;
+            min-height: 100%;
+            margin-top: 20em;
+            overflow: visible;
+            border-radius: 28px;
+            -webkit-border-radius: 28px;
+            -moz-border-radius: 28px;
+            -ms-border-radius: 28px;
+            -o-border-radius: 28px;
+        }
+        form {
+            margin: auto;
+            left: 0%;
+            right: 0%;
+            top: 0%;
+            transform: translate(0%, 35%);
+            -webkit-transform: translate(0%, 35%);
+            -moz-transform: translate(0%, 35%);
+            -ms-transform: translate(0%, 35%);
+            -o-transform: translate(0%, 35%);
         }
     }
 }

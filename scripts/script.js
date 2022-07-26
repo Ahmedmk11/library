@@ -163,6 +163,7 @@ booksBtn.addEventListener("click", function() {
 })
 
 plus.addEventListener("click", function(){
+    $('body').bind('touchmove', function(e){e.preventDefault()})
     switch (mode) {
         case "movies":
             $(moviePop).hide().fadeIn()
@@ -209,14 +210,17 @@ window.addEventListener("keydown", function(e){
 });
 
 quitMovie.addEventListener("click", function() {
+    $('body').unbind('touchmove')
     $(moviePop).fadeOut()
 })
 
 quitBook.addEventListener("click", function() {
+    $('body').unbind('touchmove')
     $(bookPop).fadeOut()
 })
 
 quitSeries.addEventListener("click", function() {
+    $('body').unbind('touchmove')
     $(seriesPop).fadeOut()
 })
 
@@ -397,6 +401,7 @@ function newAddCardfn() {
     cardsContainer.appendChild(addCard)
     addCard.appendChild(plus)
     plus.addEventListener("click", function(){
+        $('body').bind('touchmove', function(e){e.preventDefault()})
         switch (mode) {
             case "movies":
                 $(moviePop).hide().fadeIn()
@@ -431,6 +436,7 @@ function submitMovieBtn() {
         movieGenre.value = ''
         movieLength.value = ''
         currTime.value = ''
+        $('body').unbind('touchmove')
     }
 }
 
@@ -459,6 +465,7 @@ function submitSeriesBtn() {
         totalSeasons.value = ''
         finishedSeasons.value = ''
         currEpisode.value = ''
+        $('body').unbind('touchmove')
     }
 }
 
@@ -486,6 +493,7 @@ function submitBookBtn() {
         authorName.value = ''
         totalPages.value = ''
         currPage.value = ''
+        $('body').unbind('touchmove')
     }
 }
 
