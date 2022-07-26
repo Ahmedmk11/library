@@ -92,6 +92,8 @@ Movie.prototype = Object.create(Entertainment.prototype);
 // Event Listeners:
 // ---------------- 
 
+document.querySelector('.theme-toggle').addEventListener('click', setTheme)
+
 arrowHide.addEventListener("click" , function() {
     clicked = !clicked
     arrowHide.classList.toggle("arrowEffect")
@@ -191,7 +193,7 @@ function addMoviesfn(movie) {
     let movieCardTemp = node.cloneNode(true);
     movieCardTemp.setAttribute("style", "display: flex;");
     movieCardTemp.id = `movie-${myMovies.length - 1}`
-    let del = movieCardTemp.querySelector('img');
+    let del = movieCardTemp.querySelector('.img');
     let finished = movieCardTemp.querySelector('button');
     let elem1 = movieCardTemp.querySelector('.mc-title');
     let elem2 = movieCardTemp.querySelector('.mc-genre');
@@ -245,7 +247,7 @@ function addSeriesfn(series) {
     let seriesCardTemp = node.cloneNode(true);
     seriesCardTemp.setAttribute("style", "display: flex;");
     seriesCardTemp.id = `series-${mySeries.length - 1}`
-    let del = seriesCardTemp.querySelector('img');
+    let del = seriesCardTemp.querySelector('.img');
     let finished = seriesCardTemp.querySelector('button');
     let elem1 = seriesCardTemp.querySelector('.sc-title');
     let elem2 = seriesCardTemp.querySelector('.sc-genre');
@@ -298,7 +300,7 @@ function addBooksfn(book) {
     let bookCardTemp = node.cloneNode(true);
     bookCardTemp.setAttribute("style", "display: flex;");
     bookCardTemp.id = `book-${myBooks.length - 1}`
-    let del = bookCardTemp.querySelector('img');
+    let del = bookCardTemp.querySelector('.img');
     let finished = bookCardTemp.querySelector('button');
     let elem1 = bookCardTemp.querySelector('.bc-title');
     let elem2 = bookCardTemp.querySelector('.bc-genre');
@@ -352,8 +354,8 @@ function removeBookCards(event) {
 function newAddCardfn() {
     cardsContainer.innerHTML = ""
     addCard = document.createElement('div')
-    plus = document.createElement('img')
-    plus.setAttribute("src", "images/light/plus.png")
+    plus = document.createElement('div')
+    plus.classList.add("img")
     addCard.id = "add-card"
     plus.id = "add-new"
     cardsContainer.appendChild(addCard)
@@ -449,4 +451,21 @@ function submitBookBtn() {
         totalPages.value = ''
         currPage.value = ''
     }
+}
+
+function setTheme() {
+    const root = document.documentElement;
+    const newTheme = root.className === 'dark' ? 'light' : 'dark';
+    root.className = newTheme;
+}
+
+// ----------------
+// Copyright year
+// ---------------- 
+
+let currentYear = new Date().getFullYear(); 
+let startYr = document.getElementById("starting-year").textContent;
+
+if (startYr != currentYear){
+    document.getElementById("current-year").textContent = `-${currentYear}`;
 }

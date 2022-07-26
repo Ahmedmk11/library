@@ -1,3 +1,53 @@
+:root.light {
+    --background: linear-gradient(to top, #8080ff, #a59eff, #c5beff, #e3deff, #ffffff);
+    --text-color: black;
+    --text-color-inv: white;
+    --hr-color: gray;
+    --form-color: #8080FF;
+
+    --theme-icon: url('../images/light/moon.png');
+    --quit-icon: url('../images/light/quit.png');
+    --usr-icon: url('../images/light/usr.png');
+    --arrow-icon: url('../images/light/left.png');
+    --plus-icon: url('../images/light/plus.png');
+}
+
+
+:root.dark { 
+    --background: linear-gradient(to bottom, #06323a, #143e44, #20494e, #2c5658, #396262);
+    --text-color: white;
+    --text-color-inv: black;
+    --hr-color: black;
+    --form-color: #06323a;
+    --theme-icon: url('../images/dark/sun.png');
+    --quit-icon: url('../images/dark/quit.png');
+    --usr-icon: url('../images/dark/usr.png');
+    --arrow-icon: url('../images/dark/left.png');
+    --plus-icon: url('../images/dark/plus.png');
+}
+
+#usr-icon {
+    content: var(--usr-icon);
+}
+
+#side-bar-hide {
+    content: var(--arrow-icon);
+}
+
+#add-new {
+    content: var(--plus-icon);
+}
+
+#quit-book, #quit-movie, #quit-series, .quit-icn {
+    content: var(--quit-icon);
+}
+
+hr {
+    height: 1px;
+    background-color: var(--hr-color);
+    border: none;
+}
+
 @font-face {
     font-family: main;
     src: url("../fonts/main.otf");
@@ -114,9 +164,10 @@ body {
     height: 100%;
     padding: 0em 1em 1em 0em;
     margin-top: 0px;
-    background-image: linear-gradient(to top, #8080ff, #a59eff, #c5beff, #e3deff, #ffffff);
+    background-image: var(--background);
     background-repeat: no-repeat;
     background-attachment: fixed;
+    color: var(--text-color);
 }
 
 input {
@@ -146,6 +197,8 @@ input:valid {
 }
 
 header {
+    user-select: none;
+    -webkit-user-drag: none;
     top: 0;
     padding: 0.5em 1.5em 0.5em 1.5em;
     display: flex;
@@ -157,6 +210,25 @@ header {
     h1 {
         font-family: main;
         font-size: 3.5rem;
+    }
+
+    div {
+        div {
+            content: var(--theme-icon);
+            transition: transform 150ms ease-in-out;
+            -webkit-transition: transform 150ms ease-in-out;
+            -moz-transition: transform 150ms ease-in-out;
+            -ms-transition: transform 150ms ease-in-out;
+            -o-transition: transform 150ms ease-in-out;
+}
+        div:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            -webkit-transform: scale(1.05);
+            -moz-transform: scale(1.05);
+            -ms-transform: scale(1.05);
+            -o-transform: scale(1.05);
+}
     }
 }
 
@@ -172,14 +244,14 @@ footer {
     -o-transition: transform 100ms ease-in-out;
     p {
         margin: 0.4em;
-        color: black;
+        color: var(--text-color);
         a:visited {
-          color: black;  
+          color: var(--text-color);  
         }
     }
 }
 
-img {
+.img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
@@ -190,7 +262,7 @@ img {
     background-color: rgb(94,94,94,0.6);
     border-radius: 25%;
     border: none;
-    color: white;
+    color: var(--text-color-inv);
     padding: 0.75em 1.5em;
     text-align: center;
     text-decoration: none;
@@ -221,12 +293,17 @@ img {
     display: flex;
     align-items: center;
     font-size: 1.2rem;
-    img {
+    .img {
         margin-right: 1em;
+        margin-top: 1em;
+    }
+    div {
+        margin-top: 1em;
+        margin-left: 1em;
     }
 }
 
-img:hover {
+.img:hover {
     cursor: pointer;
 }
 
@@ -371,7 +448,7 @@ img:hover {
 }
 
 .active-btn {
-    background-color: black !important;
+    background-color: var(--text-color) !important;
 }
 
 .popup {
@@ -385,7 +462,7 @@ img:hover {
 }
 
 form {
-    background-color: #8080FF;
+    background-color: var(--form-color);
     width: 310px;
     height: 500px;
     display: flex;
@@ -405,7 +482,7 @@ form {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    img {
+    .img {
         user-select: none;
         align-self: flex-start;
         padding: 0%;
@@ -416,7 +493,7 @@ form {
         -o-transition: transform 300ms ease-in-out;
     }
 
-    img:hover{
+    .img:hover{
         transform: scale(1.04);
         -webkit-transform: scale(1.04);
         -moz-transform: scale(1.04);
@@ -429,9 +506,10 @@ form {
         font-weight: 900;
     }
     button {
-        background-color: black;
+        border-radius: 20%;
+        background-color: var(--text-color-inv);
         border: none;
-        color: white;
+        color: var(--text-color);
         padding: 0.75em 1.5em;
         text-align: center;
         text-decoration: none;
@@ -444,6 +522,10 @@ form {
         -moz-transition: transform 300ms ease-in-out;
         -ms-transition: transform 300ms ease-in-out;
         -o-transition: transform 300ms ease-in-out;
+        -webkit-border-radius: 20%;
+        -moz-border-radius: 20%;
+        -ms-border-radius: 20%;
+        -o-border-radius: 20%;
     }
     button:hover {
         transform: scale(1.1);
@@ -479,7 +561,7 @@ input::placeholder {
     h3 {
         text-align: center;
     }
-    img {
+    .img {
         user-select: none;
         align-self: flex-start;
         padding: 0%;
@@ -490,7 +572,7 @@ input::placeholder {
         -o-transition: transform 300ms ease-in-out;
     }
 
-    img:hover{
+    .img:hover{
         transform: scale(1.04);
         -webkit-transform: scale(1.04);
         -moz-transform: scale(1.04);
@@ -576,16 +658,16 @@ input::placeholder {
     display: flex;
     justify-content: center;
     button {
+        color: var(--text-color-inv);
         display: inline-block;
         text-decoration: none;
         padding: .75rem 1.25rem;
         border-radius: 8rem;
-        background-color: black;
+        background-color: var(--text-color);
         border: 2px transparent;
         text-transform: uppercase;
         font-size: 1rem;
         cursor: pointer;
-        color: #ffffff;
         letter-spacing: .15rem;
         transition: transform 300ms ease-in-out;
         -webkit-transition: transform 300ms ease-in-out;

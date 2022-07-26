@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
         <script src="scripts/script.js" defer></script>
         <link rel="stylesheet" href="styles/style.css" />
         <title>Library</title>
     
-    </head>
+    </head> 
     
     <body>
 
         <header>
             <h1>Library</h1>
             <div id="account">
-                <img src="images/light/usr.png" alt="user icon">
-                <p>Sign Out</p>
+                <div id="usr-icon" class="img"></div>
+                <div class="theme-toggle"></div>
             </div>
         </header> 
         
         <hr>
         <br>    
 
-        <img id="side-bar-hide" src="images/light/left.png" alt="hide sidebar">
+        <div class="img" id="side-bar-hide"></div>
         
         <div id="side-bar">
             <div id="side-items">
@@ -40,22 +40,22 @@
 
         <div id="card-container">
             <div id="add-card">
-                <img id="add-new" src="images/light/plus.png" alt="plus sign">
+                <div class="img" id="add-new"></div>
             </div>
         </div>
 
         <div id="add-book-popup" class="popup" style="display: none;">
             <form action="#" name="bookForm" method="get">
-                <img id="quit-book" src="images/light/quit.png" alt="">
+                <div class="img" id="quit-book"></div>
 
                 <label for="book-title">Book Title</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Book title should contain at least one character')" id="book-title" placeholder="The Gospel of the Flying Spaghetti Monster" minlength="1" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Book title should contain (1-50) characters')" id="book-title" placeholder="The Gospel of the Flying Spaghetti Monster" minlength="1" maxlength="50" required>
                 
                 <label for="author-name">Author</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Author name should contain at least one character')" id="author-name" placeholder="Bobby Henderson" minlength="1" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Author name should contain (1-32) characters')" id="author-name" placeholder="Bobby Henderson" minlength="1" maxlength="32" required>
                 
                 <label for="book-genre">Genre</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Book genre should contain at least three characters')" id="book-genre" placeholder="Religious Text" minlength="3" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Book genre should contain (3-50) characters')" id="book-genre" placeholder="Religious Text" minlength="3" maxlength="50" required>
 
                 <label for="total-pages">Total Pages</label>
                 <input type="number" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Number of pages should be at least one')" id="total-pages" placeholder="192" min="1" required>
@@ -69,13 +69,13 @@
 
         <div id="add-movie-popup" class="popup" style="display: none;">
             <form action="#" id="movie-form" name="movieForm" method="get">
-                <img id="quit-movie" src="images/light/quit.png" alt="">
+                <div class="img" id="quit-movie"></div>
 
                 <label for="movie-title">Movie Title</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Movie title should contain at least one character')" id="movie-title" placeholder="Shrek" minlength="1" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Movie title should contain (1-50) characters')" id="movie-title" placeholder="Shrek" minlength="1" maxlength="50" required>
                 
                 <label for="movie-genre">Genre</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Movie genre should contain at least three characters')" id="movie-genre" placeholder="Adventure, Comedy" minlength="3" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Movie genre should contain (3-50) characters')" id="movie-genre" placeholder="Adventure, Comedy" minlength="3" maxlength="50" required>
 
                 <label for="total-time">Length</label>
                 <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Movie length should be in the format HH:MM')" id="total-time" placeholder="01:30" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" minlength="5" maxlength="5" required>
@@ -89,13 +89,13 @@
 
         <div id="add-series-popup" class="popup" style="display: none;">
             <form action="#" name="seriesForm" method="get">
-                <img id="quit-series" src="images/light/quit.png" alt="">
+                <div class="img" id="quit-series"></div>
 
                 <label for="series-title">Series Title</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Series title should contain at least one character')" id="series-title" placeholder="JoJo's Bizarre Adventure" minlength="1" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Series title should contain (1-50) characters')" id="series-title" placeholder="JoJo's Bizarre Adventure" minlength="1" maxlength="50" required>
                 
                 <label for="series-genre">Genre</label>
-                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Series genre should contain at least three characters')" id="series-genre" placeholder="Supernatural, Fiction" minlength="3" required>
+                <input type="text" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Series genre should contain (3-50) characters')" id="series-genre" placeholder="Supernatural, Fiction" minlength="3" maxlength="50" required>
 
                 <label for="total-seasons">Total Seasons</label>
                 <input type="number" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Number of seasons should be at least one')" id="total-seasons" placeholder="5" min="1" required>
@@ -114,7 +114,7 @@
         <div class="movie-sample msb-sample" style="display: none;">
             <div class="one">
                 <div>
-                    <img src="images/light/quit.png" alt="quit">
+                    <div class="img quit-icn"></div>
                     <h4>Movie</h4>
                 </div>
                 <h2 class="mc-title"></h2>
@@ -142,7 +142,7 @@
         <div class="series-sample msb-sample" style="display: none;">
             <div class="one">
                 <div>
-                    <img src="images/light/quit.png" alt="quit">
+                    <div class="img quit-icn"></div>
                     <h4>Series</h4>
                 </div>
                 <h2 class="sc-title"></h2>
@@ -169,7 +169,7 @@
         <div class="book-sample msb-sample" style="display: none;">
             <div class="bc">
                 <div>
-                    <img src="images/light/quit.png" alt="quit">
+                    <div class="img quit-icn"></div>
                     <div>
                         <h4>Book</h4>
                         <h4 class="bc-author"></h4>
