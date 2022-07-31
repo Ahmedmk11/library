@@ -41,43 +41,40 @@ const children = sideBar.childNodes;
 // Objects & Constructors:
 // ----------------
 
-function Entertainment() {
+class Book {
+    type = 'b';
+    constructor (author, pages, currPage, title, genre, isFinished) {
+        this.author = author;
+        this.pages = pages
+        this.currPage = currPage
+        this.title = title;
+        this.genre = genre;
+        this.isFinished = isFinished;
+    }
 }
 
-function Book(author, pages, currPage, title, genre, isFinished) {
-    this.title = title;
-    this.genre = genre;
-    this.isFinished = isFinished;
-    this.author = author;
-    this.pages = pages
-    this.currPage = currPage
-    this.type = 'b';    
+class Series {
+    type = 's';
+    constructor (seasons, title, genre, currentEp, currentSeason,isFinished) {
+        this.seasons = seasons;
+        this.title = title;
+        this.genre = genre;
+        this.currentEp = currentEp
+        this.currentSeason = currentSeason
+        this.isFinished = isFinished;
+    }
 }
 
-Book.prototype = Object.create(Entertainment.prototype);
-
-function Series(seasons, title, genre, currentEp, currentSeason,isFinished){
-    this.title = title;
-    this.genre = genre;
-    this.isFinished = isFinished;
-    this.seasons = seasons;
-    this.currentSeason = currentSeason
-    this.currentEp = currentEp
-    this.type = 's';
+class Movie {
+    type = 'm';
+    constructor (length, title, genre, currTime, isFinished) {
+        this.length = length
+        this.title = title;
+        this.genre = genre;
+        this.currentTime = currTime
+        this.isFinished = isFinished;
+    }
 }
-
-Series.prototype = Object.create(Entertainment.prototype);
-
-function Movie(length, title, genre, currTime, isFinished){
-    this.title = title;
-    this.genre = genre;
-    this.isFinished = isFinished;
-    this.length = length
-    this.currentTime = currTime
-    this.type = 'm';
-}
-
-Movie.prototype = Object.create(Entertainment.prototype);
 
 // ----------------
 // Event Listeners:
